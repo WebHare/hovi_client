@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<language xmlns="http://www.webhare.net/xmlns/tollium/screens" xml:lang="en" xmlns:html="http://www.w3.org/1999/xhtml">
+  <textgroup gid="tolliumapps">   <!-- tolliumapps -->
+    <textgroup gid="config">   <!-- tolliumapps.config -->
+      <text tid="apikey">API Key</text>
+      <text tid="apiurl">API URL</text>
+      <text tid="config">HOVI Client configuration</text>
+      <text tid="havereadonlyaccess">Connection successful. You have read-only access to the HOVI database</text>
+      <text tid="havewriteaccess">Connection successful. You have write access to the following organizations: <param p="1"/></text>
+      <text tid="nopermissions">Invalid key (no permissions)</text>
+    </textgroup>
+  </textgroup>
+</language>

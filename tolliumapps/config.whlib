@@ -1,0 +1,36 @@
+<?wh
+
+LOADLIB "mod::tollium/lib/screenbase.whlib";
+
+LOADLIB "mod::hovi_client/lib/apiclient.whlib";
+
+
+PUBLIC STATIC OBJECTTYPE Config EXTEND TolliumScreenBase
+<
+  MACRO Init()
+  {
+    ^registry->ReadFromRegistry();
+  }
+  BOOLEAN FUNCTION Submit()
+  {
+    RECORD permissions;
+    OBJECT work := this->BeginFeedback();
+    IF(NOT work->HasFailed())
+    {
+      OBJECT client := NEW HOVIAPIClient(^registry->^apiurl->value, ^registry->^apikey->value);
+      permissions := client->GetPermissions();
+      IF(NOT RecordExists(permissions))
+        work->AddErrorFor(^registry->^apikey, this->GetTid(".nopermissions"));
+    }
+    IF(NOT work->Finish())
+      RETURN FALSE;
+
+    work := this->BeginWork();
+    ^registry->WriteToRegistry();
+    IF(Length(permissions.manageorganizations) = 0)
+      work->AddWarning(this->GetTid(".havewriteaccess"), Detokenize(permissions.manageorganizations, ", "));
+    ELSE
+      work->AddWarning(this->GetTid(".havereadonlyaccess"));
+    RETURN work->Finish();
+  }
+>;

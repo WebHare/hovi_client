@@ -1,0 +1,554 @@
+<?wh
+LOADLIB "wh::datetime.whlib";
+LOADLIB "wh::money.whlib";
+LOADLIB "wh::internet/webbrowser.whlib";
+
+LOADLIB "mod::system/lib/configure.whlib";
+
+
+OBJECT currenthoviclient;
+
+CONSTANT STRING hovieditor_use_apiversion := "2";
+
+//needed for 'quick' access to these fields in harescript without needing to a full openapi encode/decoe
+CONSTANT RECORD hovieditor_apitranslations := CELL
+    [ "accreditations"
+    , "accrOrganization"
+    , "admissionSelections"
+    , "admissionTests"
+    , "applicationDeadline"
+    , "applicationDeadlineNonEU"
+    , "brinName"
+    , "brinVolg"
+    , "checkName"
+    , "cluster"
+    , "contactId"
+    , "contactSubjects"
+    , "cooperationType"
+    , "cooperativePartners"
+    , "courseCityName"
+    , "croho"
+    , "crohoName"
+    , "crohoSector"
+    , "degree"
+    , "endDate"
+    , "endProductDate"
+    , "eventDescription"
+    , "eventEndDate"
+    , "eventId"
+    , "eventLevels"
+    , "eventName"
+    , "eventPlanning"
+    , "eventStartDate"
+    , "eventType"
+    , "exchangePrograms"
+    , "explanationAbroad"
+    , "increasedTuitionFeeBKKI"
+    , "informationRegistrationURL"
+    , "instructionModeDescription"
+    , "instructionModes"
+    , "intlLanguageRequirements"
+    , "isBKKIProduct"
+    , "iscedCluster"
+    , "soi2006Classification"
+    , "isSecretary"
+    , "jobName"
+    , "jobPerspective"
+    , "jointDegree"
+    , "languageExam"
+    , "languageRequirements"
+    , "locationEmail"
+    , "locationId"
+    , "locationName"
+    , "locationPhone"
+    , "locationType"
+    , "mediaId"
+    , "mediaLink"
+    , "mediaName"
+    , "mediaType"
+    , "minimumECTS"
+    , "minimumScore"
+    , "numberOfTries"
+    , "numerusFixus"
+    , "numerusUrl"
+    , "obligatedStudyAbroad"
+    , "onlineEventURL"
+    , "opleidingSK123Id"
+    , "organizationId"
+    , "organizationType"
+    , "orgUnitCountry"
+    , "orgUnitName"
+    , "otherRequirements"
+    , "parentLocation"
+    , "participatingProducts"
+    , "partnerCountry"
+    , "partnerName"
+    , "partnerOrganization"
+    , "percentageDistanceLearning"
+    , "percentageForeignStudents"
+    , "percentageNightEducation"
+    , "percentageStudyAbroad"
+    , "percProductLanguage"
+    , "placeInProduct"
+    , "postalAddress"
+    , "potentialJobs"
+    , "preEducation"
+    , "productDescription"
+    , "productForm"
+    , "productForms"
+    , "productId"
+    , "productLanguage"
+    , "productLanguages"
+    , "productLevel"
+    , "productName"
+    , "productResult"
+    , "productResults"
+    , "productStarts"
+    , "productType"
+    , "productURL"
+    , "programDescription"
+    , "programName"
+    , "relatedProducts"
+    , "roleName"
+    , "scholarships"
+    , "sideLocations"
+    , "startingDate"
+    , "startProductDate"
+    , "studyAbroads"
+    , "studyAdvices"
+    , "studyChoiceChecks"
+    , "studyCosts"
+    , "studyGuideURL"
+    , "studyRoutes"
+    , "studyRouteType"
+    , "studyRouteTypes"
+    , "subOrganizationId"
+    , "subOrganizationName"
+    , "subOrganizations"
+    , "summitCodes"
+    , "targetLevels"
+    , "targetRegions"
+    , "testMethod"
+    , "tuitionFeeIncludes"
+    , "tuitionFeePeriod"
+    , "tuitionFees"
+    , "tuitionFeeType"
+    , "tuitionFeeUrl"
+    , "userKey"
+    , "validFor"
+    , "vestigingSK123Id"
+    , "visitorAddress"
+    , "webLink"
+    ];
+
+
+CONSTANT STRING ARRAY u_datetimefields :=
+    [ "EVENTSTARTDATE", "EVENTENDDATE" ];
+
+CONSTANT STRING ARRAY u_datefields :=
+    [ "PRODUCTFORMS.PRODUCTSTARTS.APPLICATIONDEADLINE", "PRODUCTFORMS.PRODUCTSTARTS.APPLICATIONDEADLINENONEU", "PRODUCTFORMS.PRODUCTSTARTS.STARTINGDATE", "PRODUCTFORMS.PRODUCTSTARTS.ENDDATE" ];
+
+CONSTANT STRING ARRAY u_moneyfields := [ "PRODUCTFORMS.TUITIONFEES.AMOUNT", "PRODUCTFORMS.STUDYCOSTS.AMOUNT", "CREDITS" ];
+
+/** @param data RECORD or RECORD ARRAY
+*/
+VARIANT FUNCTION ConvertAddressedField(STRING ARRAY toks, VARIANT data, STRING mode)
+{
+  IF (TypeID(data) = TypeID(RECORD ARRAY))
+  {
+    FOREVERY (RECORD elt FROM data)
+      data[#elt] := ConvertAddressedField(toks, elt, mode);
+    RETURN data;
+  }
+  IF (NOT CellExists(data, toks[0]))
+    RETURN data;
+
+  VARIANT value := GetCell(data, toks[0]);
+  IF (LENGTH(toks) > 1)
+    value := ConvertAddressedField(ArraySlice(toks, 1), value, mode);
+  ELSE
+  {
+    SWITCH (mode)
+    {
+      CASE "money-to-text"      { IF (TypeID(value) != TypeID(STRING)) { value := FormatMoney(value, 0, ".", "", FALSE); } }
+      CASE "date-to-text"       { IF (TypeID(value) != TypeID(STRING)) { value := FormatDateTime("%Y-%m-%d", value); } }
+      CASE "datetime-to-text"   { IF (TypeID(value) != TypeID(STRING)) { value := FormatDateTime("%Y-%m-%dT%H:%M:%SZ", value); } }
+      CASE "text-to-money"      { IF (TypeID(value) = TypeID(STRING)) { value := ToMoney(value, 0m); } }
+      CASE "text-to-date"       { IF (TypeID(value) = TypeID(STRING)) { value := MakeDateFromText(value); } }
+      CASE "text-to-datetime"   { IF (TypeID(value) = TypeID(STRING)) { value := MakeDateFromText(value); } }
+      DEFAULT                   { THROW NEW Exception(`Unknown conversion mode ${EncodeJSON(mode)}`); }
+    }
+  }
+
+  RETURN CellInsert(CellDelete(data, toks[0]), toks[0], value);
+}
+
+
+VARIANT FUNCTION ConvertFieldsForRequest(VARIANT data)
+{
+  IF (TypeID(data) = TypeID(RECORD) OR TypeID(data) = TypeID(RECORD ARRAY))
+  {
+    FOREVERY (STRING toks FROM u_moneyfields)
+      data := ConvertAddressedField(Tokenize(toks, "."), data, "money-to-text");
+    FOREVERY (STRING toks FROM u_datefields)
+      data := ConvertAddressedField(Tokenize(toks, "."), data, "date-to-text");
+    FOREVERY (STRING toks FROM u_datetimefields)
+      data := ConvertAddressedField(Tokenize(toks, "."), data, "datetime-to-text");
+  }
+
+  RETURN data;
+}
+
+VARIANT FUNCTION ConvertFieldsFromResponse(VARIANT data)
+{
+  IF (TypeID(data) = TypeID(RECORD) OR TypeID(data) = TypeID(RECORD ARRAY))
+  {
+    FOREVERY (STRING toks FROM u_moneyfields)
+      data := ConvertAddressedField(Tokenize(toks, "."), data, "text-to-money");
+    FOREVERY (STRING toks FROM u_datefields)
+      data := ConvertAddressedField(Tokenize(toks, "."), data, "text-to-date");
+    FOREVERY (STRING toks FROM u_datetimefields)
+      data := ConvertAddressedField(Tokenize(toks, "."), data, "text-to-datetime");
+  }
+
+  RETURN data;
+}
+
+PUBLIC STRING FUNCTION GetHoviClientAPIVersion()
+{
+  RETURN hovieditor_use_apiversion;
+}
+
+PUBLIC STATIC OBJECTTYPE HOVIAPIClient
+<
+  STRING baseurl;
+  OBJECT browser;
+
+  MACRO NEW(STRING baseurl, STRING apikey)
+  {
+    this->baseurl := baseurl;
+    this->browser := NEW WebBrowser;
+    this->browser->SetAuthorization(`*`, `Bearer ${apikey}`);
+  }
+
+  PUBLIC VARIANT FUNCTION Get(STRING url, RECORD options DEFAULTSTO DEFAULT RECORD)
+  {
+    options := ValidateOptions([ expecterrors := STRING[] ], options);
+    IF(url LIKE "/*")
+      url := Substring(url,1);
+
+    STRING finalurl := this->baseurl || hovieditor_use_apiversion || "/" || url;
+
+    //this->browser->debug := TRUE;
+    this->browser->GotoWebPage(finalurl);
+
+    VARIANT response := DecodeJSONBlob(this->browser->content);
+    IF (TypeID(response) = TypeID(RECORD) AND IsValueSet(response))
+      response := ConvertFieldsFromResponse(response);
+
+    IF(this->browser->GetHTTPStatusCode() >= 500)
+    {
+      THROW NEW Exception(`Failed to navigate to ${finalurl}: ${this->browser->GetHTTPStatusText()}`);
+    }
+    ELSE IF(this->browser->GetHTTPStatusCode() >= 400)
+    {
+      STRING errorcode := EnforceStructure([ errorcode := "" ], response).errorcode;
+      IF (errorcode IN options.expecterrors)
+      {
+        RETURN CELL
+          [ etag := ""
+          , statuscode :=     this->browser->GetHTTPStatusCode()
+          , errorcode
+          , data := response
+          ]; //expected error
+      }
+
+      THROW NEW Exception(`Failed to navigate to ${finalurl}: ${this->browser->GetHTTPStatusText()}`);
+    }
+    ELSE IF(this->browser->GetHTTPStatusCode() >= 300)
+    {
+      THROW NEW Exception(`Failed to navigate to ${finalurl}: ${this->browser->GetHTTPStatusText()}`);
+    }
+
+    RETURN CELL
+        [ data :=         response
+        , errorcode :=    ""
+        , etag :=         this->browser->GetResponseHeader("etag")
+        , statuscode :=   this->browser->GetHTTPStatusCode()
+        ];
+  }
+
+  PUBLIC RECORD FUNCTION SendRequestJSON(STRING method, STRING url, VARIANT postbody, RECORD options DEFAULTSTO DEFAULT RECORD)
+  {
+    options := ValidateOptions(
+        [ ifmatch :=    ""
+        , expecterrors := STRING[]
+        ], options);
+
+    RECORD ARRAY headers;
+    IF (options.ifmatch != "")
+      INSERT [ field := "If-Match", value := options.ifmatch ] INTO headers AT END;
+
+    IF(url LIKE "/*")
+      url := Substring(url,1);
+
+    IF (TypeID(postbody) = TypeID(RECORD) AND IsValueSet(postbody))
+      postbody := ConvertFieldsForRequest(postbody);
+
+    STRING finalurl := this->baseurl || hovieditor_use_apiversion || "/" || url;
+    this->browser->SendRawRequest(method, finalurl, [ [ field := "Content-type", value := "application/json" ], ...headers ], EncodeJSONBlob(postbody, hovieditor_apitranslations));
+
+    VARIANT response := DecodeJSONBlob(this->browser->content);
+    IF (TypeID(response) = TypeID(RECORD) AND IsValueSet(response))
+      response := ConvertFieldsFromResponse(response);
+
+    IF(this->browser->GetHTTPStatusCode() >= 500)
+    {
+      THROW NEW Exception(`Failed to navigate to ${finalurl}: ${this->browser->GetHTTPStatusText()}`);
+    }
+    ELSE IF(this->browser->GetHTTPStatusCode() >= 400)
+    {
+      STRING errorcode := EnforceStructure([ errorcode := "" ], response).errorcode;
+      IF (errorcode IN options.expecterrors)
+      {
+        RETURN CELL
+          [ etag := ""
+          , statuscode :=     this->browser->GetHTTPStatusCode()
+          , errorcode
+          , data := response
+          ]; //expected error
+      }
+
+      THROW NEW Exception(`Failed to navigate to ${finalurl}: ${this->browser->GetHTTPStatusText()}`);
+    }
+    ELSE IF(this->browser->GetHTTPStatusCode() >= 300)
+    {
+      THROW NEW Exception(`Failed to navigate to ${finalurl}: ${this->browser->GetHTTPStatusText()}`);
+    }
+
+    IF (TypeID(response) = TypeID(RECORD) AND IsValueSet(response))
+      response := ConvertFieldsFromResponse(response);
+
+    RETURN
+        [ data :=         response
+        , errorcode :=    ""
+        , etag :=         this->browser->GetResponseHeader("etag")
+        , statuscode :=   this->browser->GetHTTPStatusCode()
+        ];
+  }
+
+  PUBLIC RECORD FUNCTION GetPermissions()
+  {
+    RECORD retval := this->Get("/permissions", [ expecterrors := [ "apikey_deactivated", "no_such_apikey", "invalid_authentication_header" ] ]).data;
+
+    IF(CellExists(retval,'errorcode'))
+      RETURN DEFAULT RECORD;
+
+    RETURN EnforceStructure([ manageorganizations := STRING[] ], retval);
+  }
+
+  PUBLIC RECORD ARRAY FUNCTION GetOrganizations()
+  {
+    RETURN EnforceStructure(RECORD[], this->Get(`/organization`).data);
+  }
+
+  PUBLIC RECORD FUNCTION GetProduct(STRING orgid, STRING productid)
+  {
+    //RETURN EnforceStructure([ data := product_structure ], this->Get(`/organization/${EncodeURL(orgid)}/product/${productid}`));
+    RETURN this->Get(`/organization/${EncodeURL(orgid)}/product/${productid}`);
+  }
+
+  PUBLIC RECORD ARRAY FUNCTION GetProducts(STRING orgid)
+  {
+    RETURN EnforceStructure(
+        [ [ userkey :=        ""
+          , producttype :=    ""
+          , productname :=    DEFAULT RECORD
+          , productlevel :=   ""
+          , location :=       ""
+          , croho :=          ""
+          , crohoname :=      DEFAULT RECORD
+          ]
+        ], this->Get(`/organization/${EncodeURL(orgid)}/product`).data);
+  }
+
+  PUBLIC RECORD FUNCTION GetLocation(STRING orgid, STRING locationid)
+  {
+    RETURN EnforceStructure(CELL
+        [ data :=   [ userkey :=  ""
+                    , contacts := RECORD[]
+                    ]
+        ], this->Get(`/organization/${EncodeURL(orgid)}/location/${locationid}`));
+  }
+
+  PUBLIC RECORD ARRAY FUNCTION GetLocations(STRING orgid)
+  {
+    RETURN EnforceStructure(
+        [ [ userkey := ""
+          , locationname := DEFAULT RECORD
+          , brinvolg := ""
+          ]
+        ], this->Get(`/organization/${EncodeURL(orgid)}/location`).data);
+  }
+
+  PUBLIC RECORD FUNCTION GetSubOrganization(STRING orgid, STRING suborganizationid)
+  {
+    RETURN EnforceStructure(CELL
+        [ data := [ userkey := "" ]
+        ], this->Get(`/organization/${EncodeURL(orgid)}/suborganization/${suborganizationid}`));
+  }
+
+  PUBLIC RECORD ARRAY FUNCTION GetSubOrganizations(STRING orgid)
+  {
+    RETURN EnforceStructure(
+        [ [ userkey := ""
+          ]
+        ], this->Get(`/organization/${EncodeURL(orgid)}/suborganization`).data);
+  }
+
+  PUBLIC RECORD FUNCTION GetContact(STRING orgid, STRING contactid)
+  {
+    RETURN EnforceStructure(CELL
+        [ data :=   [ userkey := "" ]
+        ], this->Get(`/organization/${EncodeURL(orgid)}/contact/${contactid}`));
+  }
+
+  PUBLIC RECORD ARRAY FUNCTION GetContacts(STRING orgid)
+  {
+    RETURN EnforceStructure(
+        [ [ userkey := ""
+          ]
+        ], this->Get(`/organization/${EncodeURL(orgid)}/contact`).data);
+  }
+
+  PUBLIC RECORD FUNCTION GetEvent(STRING orgid, STRING eventid)
+  {
+    RETURN EnforceStructure(CELL
+        [ data :=   [ userkey := "" ]
+        ], this->Get(`/organization/${EncodeURL(orgid)}/event/${eventid}`));
+  }
+
+  PUBLIC RECORD ARRAY FUNCTION GetEvents(STRING orgid)
+  {
+    RETURN EnforceStructure(
+        [ [ userkey := ""
+          , eventstartdate := DEFAULT DATETIME
+          , eventenddate := DEFAULT DATETIME
+          ]
+        ], this->Get(`/organization/${EncodeURL(orgid)}/event`).data);
+  }
+
+  PUBLIC RECORD FUNCTION GetMedia(STRING orgid, STRING mediaid)
+  {
+    RETURN EnforceStructure(CELL
+        [ data :=   [ userkey := "" ]
+        ], this->Get(`/organization/${EncodeURL(orgid)}/media/${mediaid}`));
+  }
+
+  PUBLIC RECORD ARRAY FUNCTION GetMedias(STRING orgid)
+  {
+    RETURN EnforceStructure(
+        [ [ userkey := ""
+          ]
+        ], this->Get(`/organization/${EncodeURL(orgid)}/media`).data);
+  }
+
+  PUBLIC RECORD FUNCTION GetReferences(STRING type, STRING orgid, STRING rowkey)
+  {
+    IF (type = "organization")
+      THROW NEW Exception(`Cannot query references of type ${EncodeJSON(type)}`);
+
+    RECORD rec := this->Get(`/organization/${EncodeURL(orgid)}/${type}/${rowkey}/references`).data;
+    IF (CellExists(rec, "product"))
+    {
+      rec.product := EnforceStructure(
+          [ [ userkey :=        ""
+            , producttype :=    ""
+            , productname :=    DEFAULT RECORD
+            , location :=       ""
+            , croho :=          ""
+            ]
+          ], rec.product);
+    }
+    IF (CellExists(rec, "contact"))
+    {
+      rec.contact := EnforceStructure(
+          [ [ userkey :=        ""
+            ]
+          ], rec.contact);
+    }
+    IF (CellExists(rec, "event"))
+    {
+      rec.event := EnforceStructure(
+          [ [ userkey :=        ""
+            , eventstartdate := DEFAULT DATETIME
+            , eventenddate := DEFAULT DATETIME
+            ]
+          ], rec.event);
+    }
+    IF (CellExists(rec, "suborganization"))
+    {
+      rec.suborganization := EnforceStructure(
+          [ [ userkey :=        ""
+            ]
+          ], rec.suborganization);
+    }
+    IF (CellExists(rec, "media"))
+    {
+      rec.media := EnforceStructure(
+          [ [ userkey :=        ""
+            ]
+          ], rec.media);
+    }
+    IF (CellExists(rec, "location"))
+    {
+      rec.location := EnforceStructure(
+          [ [ userkey :=        ""
+            , locationname := DEFAULT RECORD
+            , brinvolg := ""
+            ]
+          ], rec.location);
+    }
+    RETURN rec;
+  }
+
+  PUBLIC RECORD ARRAY FUNCTION GetDomain(STRING domainname)
+  {
+    RETURN EnforceStructure([ [ title := DEFAULT RECORD ] ], this->Get(`/domain/${EncodeURL(domainname)}`).data);
+  }
+
+  PUBLIC RECORD FUNCTION GetDomainValue(STRING domainname, STRING rowkey)
+  {
+    RETURN EnforceStructure([ title := DEFAULT RECORD ], this->Get(`/domain/${EncodeURL(domainname)}/${EncodeURL(rowkey)}`).data);
+  }
+
+  PUBLIC RECORD FUNCTION GetOrganization(STRING orgid)
+  {
+    RETURN EnforceStructure(CELL
+        [ data := [ locations := STRING[]
+                  , shortcode := ""
+                  ]
+        ], this->Get(`/organization/${EncodeURL(orgid)}`));
+  }
+
+  PUBLIC RECORD FUNCTION GetCrohoStudy(STRING crohostudy)
+  {
+    RETURN this->Get(`/crohostudy/${EncodeURL(crohostudy)}`);
+  }
+>;
+
+PUBLIC OBJECT FUNCTION GetHOVIAPIClient()
+{
+  IF(NOT ObjectExists(currenthoviclient))
+  {
+    STRING baseurl := ReadRegistryKey("hovi_client.apiurl");
+    STRING apikey := ReadRegistryKey("hovi_client.apikey");
+    IF(apikey = "")
+      THROW NEW Exception(`HOVI API key not set`);
+
+    currenthoviclient := NEW HOVIAPIClient(baseurl, apikey);
+  }
+
+  RETURN currenthoviclient;
+}
+

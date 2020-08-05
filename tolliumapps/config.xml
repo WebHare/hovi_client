@@ -1,0 +1,17 @@
+<screens xmlns="http://www.webhare.net/xmlns/tollium/screens"
+         xmlns:s="http://www.webhare.net/xmlns/system/components"
+         gid="tolliumapps.config"
+         library="config.whlib">
+
+  <screen name="config" footerbuttons="ok cancel">
+    <compositions>
+      <s:registrynode name="registry" node="hovi_client" />
+    </compositions>
+
+    <body>
+      <textedit composition="registry" cellname="apiurl" required="true" />
+      <textedit composition="registry" cellname="apikey" required="true" />
+    </body>
+  </screen>
+
+</screens>

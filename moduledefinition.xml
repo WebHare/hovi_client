@@ -1,0 +1,19 @@
+<module xmlns="http://www.webhare.net/xmlns/system/moduledefinition">
+
+  <meta configscreen="/tolliumapps/config.xml#config">
+    <version>2.0.0</version>
+    <description />
+    <packaging download="true" webhareversion=">= 4.28.0" />
+    <validation options="nowarnings" />
+  </meta>
+
+  <moduleregistry>
+    <string name="apiurl" description="HOVI API base url" initialval="https://api.hovi.nl/api/" />
+    <string name="apikey" description="HOVI API key" />
+  </moduleregistry>
+
+  <publisher>
+    <siteprofile path="data/hovirtd.siteprl.xml" />
+  </publisher>
+
+</module>
