@@ -225,7 +225,7 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
   OBJECT browser;
   RECORD options;
 
-  MACRO NEW(STRING baseurl, STRING apikey, RECORD options)
+  MACRO NEW(STRING baseurl, STRING apikey, RECORD options DEFAULTSTO DEFAULT RECORD)
   {
     this->options := ValidateOptions([apiversion := hovieditor_use_apiversion], options);
     this->baseurl := baseurl;
