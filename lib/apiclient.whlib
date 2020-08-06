@@ -552,3 +552,8 @@ PUBLIC OBJECT FUNCTION GetHOVIAPIClient()
   RETURN currenthoviclient;
 }
 
+PUBLIC MACRO __ResetHoviClient()
+{
+  currenthoviclient := DEFAULT OBJECT;
+}
+
