@@ -235,7 +235,9 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
 
   PUBLIC VARIANT FUNCTION Get(STRING url, RECORD options DEFAULTSTO DEFAULT RECORD)
   {
-    options := ValidateOptions([ expecterrors := STRING[] ], options);
+    options := ValidateOptions([ expecterrors := STRING[]
+                               , convertfields := TRUE
+                               ], options);
     IF(url LIKE "/*")
       url := Substring(url,1);
 
@@ -245,7 +247,7 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
     this->browser->GotoWebPage(finalurl);
 
     VARIANT response := DecodeJSONBlob(this->browser->content);
-    IF (TypeID(response) = TypeID(RECORD) AND IsValueSet(response))
+    IF (TypeID(response) = TypeID(RECORD) AND IsValueSet(response) AND options.convertfields)
       response := ConvertFieldsFromResponse(response);
 
     IF(this->browser->GetHTTPStatusCode() >= 500)
