@@ -223,9 +223,11 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
 <
   STRING baseurl;
   OBJECT browser;
+  RECORD options;
 
-  MACRO NEW(STRING baseurl, STRING apikey)
+  MACRO NEW(STRING baseurl, STRING apikey, RECORD options)
   {
+    this->options := ValidateOptions([apiversion := hovieditor_use_apiversion], options);
     this->baseurl := baseurl;
     this->browser := NEW WebBrowser;
     this->browser->SetAuthorization(`*`, `Bearer ${apikey}`);
@@ -237,7 +239,7 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
     IF(url LIKE "/*")
       url := Substring(url,1);
 
-    STRING finalurl := this->baseurl || hovieditor_use_apiversion || "/" || url;
+    STRING finalurl := this->baseurl || this->options.apiversion || "/" || url;
 
     //this->browser->debug := TRUE;
     this->browser->GotoWebPage(finalurl);
@@ -295,7 +297,7 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
     IF (TypeID(postbody) = TypeID(RECORD) AND IsValueSet(postbody))
       postbody := ConvertFieldsForRequest(postbody);
 
-    STRING finalurl := this->baseurl || hovieditor_use_apiversion || "/" || url;
+    STRING finalurl := this->baseurl || this->options.apiversion || "/" || url;
     this->browser->SendRawRequest(method, finalurl, [ [ field := "Content-type", value := "application/json" ], ...headers ], EncodeJSONBlob(postbody, hovieditor_apitranslations));
 
     VARIANT response := DecodeJSONBlob(this->browser->content);
@@ -537,16 +539,24 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
   }
 >;
 
-PUBLIC OBJECT FUNCTION GetHOVIAPIClient()
+PUBLIC OBJECT FUNCTION GetHOVIAPIClient(RECORD options DEFAULTSTO DEFAULT RECORD)
 {
-  IF(NOT ObjectExists(currenthoviclient))
+  options := ValidateOptions([apiversion := hovieditor_use_apiversion], options);
+
+  BOOLEAN usesingleton := options.apiversion = hovieditor_use_apiversion;
+
+  IF(NOT ObjectExists(currenthoviclient) OR NOT usesingleton)
   {
     STRING baseurl := ReadRegistryKey("hovi_client.apiurl");
     STRING apikey := ReadRegistryKey("hovi_client.apikey");
     IF(apikey = "")
       THROW NEW Exception(`HOVI API key not set`);
 
-    currenthoviclient := NEW HOVIAPIClient(baseurl, apikey);
+    OBJECT newclient := NEW HOVIAPIClient(baseurl, apikey, options);
+    IF(NOT usesingleton)
+      RETURN newclient;
+
+    currenthoviclient := newclient;
   }
 
   RETURN currenthoviclient;
