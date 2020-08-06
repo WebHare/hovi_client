@@ -27,8 +27,8 @@ PUBLIC STATIC OBJECTTYPE Config EXTEND TolliumScreenBase
 
     work := this->BeginWork();
     ^registry->WriteToRegistry();
-    IF(Length(permissions.manageorganizations) = 0)
-      work->AddWarning(this->GetTid(".havewriteaccess"), Detokenize(permissions.manageorganizations, ", "));
+    IF(Length(permissions.manageorganizations) > 0)
+      work->AddWarning(this->GetTid(".havewriteaccess", Detokenize(permissions.manageorganizations, ", ")));
     ELSE
       work->AddWarning(this->GetTid(".havereadonlyaccess"));
     RETURN work->Finish();
