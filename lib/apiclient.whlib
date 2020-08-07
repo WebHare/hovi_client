@@ -11,7 +11,7 @@ OBJECT currenthoviclient;
 CONSTANT STRING hovieditor_use_apiversion := "2";
 
 //needed for 'quick' access to these fields in harescript without needing to a full openapi encode/decoe
-CONSTANT RECORD hovieditor_apitranslations := CELL
+PUBLIC CONSTANT RECORD __hovieditor_apitranslations := CELL
     [ "accreditations"
     , "accrOrganization"
     , "admissionSelections"
@@ -303,7 +303,7 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
       postbody := ConvertFieldsForRequest(postbody);
 
     STRING finalurl := this->baseurl || this->options.apiversion || "/" || url;
-    this->browser->SendRawRequest(method, finalurl, [ [ field := "Content-type", value := "application/json" ], ...headers ], EncodeJSONBlob(postbody, hovieditor_apitranslations));
+    this->browser->SendRawRequest(method, finalurl, [ [ field := "Content-type", value := "application/json" ], ...headers ], EncodeJSONBlob(postbody, __hovieditor_apitranslations));
 
     VARIANT response := DecodeJSONBlob(this->browser->content);
     IF (TypeID(response) = TypeID(RECORD) AND IsValueSet(response))
