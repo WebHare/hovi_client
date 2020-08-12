@@ -383,7 +383,7 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
   {
     RETURN EnforceStructure(CELL
         [ data :=   [ userkey :=  ""
-                    , contacts := RECORD[]
+                    , contacts := STRING[]
                     ]
         ], this->Get(`/organization/${EncodeURL(orgid)}/location/${locationid}`));
   }
