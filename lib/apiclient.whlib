@@ -519,6 +519,20 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
     RETURN rec;
   }
 
+  PUBLIC RECORD ARRAY FUNCTION GetCooperations(STRING orgid)
+  {
+    RETURN EnforceStructure(
+        [ [ userkey :=        ""
+          , producttype :=    ""
+          , productname :=    DEFAULT RECORD
+          , productlevel :=   ""
+          , location :=       ""
+          , croho :=          ""
+          , crohoname :=      DEFAULT RECORD
+          ]
+        ], this->Get(`/organization/${EncodeURL(orgid)}/cooperation`).data);
+  }
+
   PUBLIC RECORD ARRAY FUNCTION GetDomain(STRING domainname)
   {
     RETURN EnforceStructure([ [ title := DEFAULT RECORD ] ], this->Get(`/domain/${EncodeURL(domainname)}`).data);
