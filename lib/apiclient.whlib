@@ -556,6 +556,14 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
   {
     RETURN this->Get(`/crohostudy/${EncodeURL(crohostudy)}`);
   }
+
+  PUBLIC RECORD FUNCTION GetState()
+  {
+    RETURN EnforceStructure(
+        [ apistate :=           ""
+        , hovistatelistener :=  ""
+        ], this->Get(`/state`).data);
+  }
 >;
 
 PUBLIC OBJECT FUNCTION GetHOVIAPIClient(RECORD options DEFAULTSTO DEFAULT RECORD)
