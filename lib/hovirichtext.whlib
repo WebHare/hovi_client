@@ -1,0 +1,30 @@
+<?wh
+
+LOADLIB "wh::files.whlib";
+LOADLIB "wh::xml/dom.whlib";
+LOADLIB "mod::publisher/lib/internal/rtd/editable.whlib";
+
+
+OBJECT richdoc;
+
+PUBLIC RECORD FUNCTION CleanupHoviHTMLText(STRING inputtext)
+{
+  IF(NOT ObjectExists(richdoc))
+  {
+    richdoc := NEW EditableRichDocument;
+    richdoc->rtdtype := "http://www.hovi.nl/xmlns/hovi_client/hovirtdtype";
+  }
+
+  richdoc->body->Empty();
+  richdoc->body->AppendChild(richdoc->body->ownerdocument->ImportNode(MakeXMLDocumentFromHTML(StringToBlob(`<html><body>${inputtext}</body></html>`))->body, TRUE));
+  richdoc->structure->RestructureRichDocument(richdoc->body);
+
+  FOREVERY(OBJECT toclean FROM richdoc->body->GetElements('p,ul'))
+    toclean->RemoveAttribute("class");
+
+  RETURN [ resultlength := UCLength(richdoc->body->textcontent)
+         , normalizedhtml := richdoc->body->innerhtml
+         ];
+}
+
+

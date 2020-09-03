@@ -18,6 +18,7 @@ PUBLIC CONSTANT RECORD __hovieditor_apitranslations := CELL
     , "admissionTests"
     , "applicationDeadline"
     , "applicationDeadlineNonEU"
+    , "availableForms"
     , "brinName"
     , "brinVolg"
     , "checkName"
@@ -361,6 +362,9 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
 
   PUBLIC RECORD FUNCTION GetProduct(STRING orgid, STRING productid)
   {
+    IF(productid = "")
+      THROW NEW Exception(`productid is required`);
+
     //RETURN EnforceStructure([ data := product_structure ], this->Get(`/organization/${EncodeURL(orgid)}/product/${productid}`));
     RETURN this->Get(`/organization/${EncodeURL(orgid)}/product/${productid}`);
   }
@@ -381,6 +385,9 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
 
   PUBLIC RECORD FUNCTION GetLocation(STRING orgid, STRING locationid)
   {
+    IF(locationid = "")
+      THROW NEW Exception(`locationid is required`);
+
     RETURN EnforceStructure(CELL
         [ data :=   [ userkey :=  ""
                     , contacts := STRING[]
@@ -400,6 +407,9 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
 
   PUBLIC RECORD FUNCTION GetSubOrganization(STRING orgid, STRING suborganizationid)
   {
+    IF(suborganizationid = "")
+      THROW NEW Exception(`suborganizationid is required`);
+
     RETURN EnforceStructure(CELL
         [ data := [ userkey := "" ]
         ], this->Get(`/organization/${EncodeURL(orgid)}/suborganization/${suborganizationid}`));
@@ -415,6 +425,9 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
 
   PUBLIC RECORD FUNCTION GetContact(STRING orgid, STRING contactid)
   {
+    IF(contactid = "")
+      THROW NEW Exception(`contactid is required`);
+
     RETURN EnforceStructure(CELL
         [ data :=   [ userkey := "" ]
         ], this->Get(`/organization/${EncodeURL(orgid)}/contact/${contactid}`));
@@ -430,6 +443,9 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
 
   PUBLIC RECORD FUNCTION GetEvent(STRING orgid, STRING eventid)
   {
+    IF(eventid = "")
+      THROW NEW Exception(`eventid is required`);
+
     RETURN EnforceStructure(CELL
         [ data :=   [ userkey := "" ]
         ], this->Get(`/organization/${EncodeURL(orgid)}/event/${eventid}`));
@@ -447,6 +463,9 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
 
   PUBLIC RECORD FUNCTION GetMedia(STRING orgid, STRING mediaid)
   {
+    IF(mediaid = "")
+      THROW NEW Exception(`mediaid is required`);
+
     RETURN EnforceStructure(CELL
         [ data :=   [ userkey := "" ]
         ], this->Get(`/organization/${EncodeURL(orgid)}/media/${mediaid}`));
