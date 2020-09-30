@@ -21,6 +21,9 @@ PUBLIC RECORD FUNCTION CleanupHoviHTMLText(STRING inputtext)
 
   FOREVERY(OBJECT toclean FROM richdoc->body->GetElements('p,ul'))
     toclean->RemoveAttribute("class");
+  FOREVERY(OBJECT toclean FROM richdoc->body->GetElements('br[data-wh-rte=bogus]'))
+    toclean->Remove();
+
 
   RETURN [ resultlength := UCLength(richdoc->body->textcontent)
          , normalizedhtml := richdoc->body->innerhtml
