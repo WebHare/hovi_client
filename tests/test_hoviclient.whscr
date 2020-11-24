@@ -1,0 +1,46 @@
+<?wh
+
+LOADLIB "mod::system/lib/testframework.whlib";
+
+LOADLIB "mod::hovi_client/lib/hovirichtext.whlib";
+
+
+MACRO TestCleanupHoviHTMLText()
+{
+  RECORD res;
+
+  res  := CleanupHoviHTMLText("");
+  Testeq([ resultlength := 0, normalizedhtml := "" ], res);
+
+  res  := CleanupHoviHTMLText(`<P class='normal'>Hello™&euro;</p>`);
+  Testeq([ resultlength := 7, normalizedhtml := "<p>Hello™€</p>" ], res);
+
+  res  := CleanupHoviHTMLText("<P>Hello™&euro;</p>");
+  Testeq([ resultlength := 7, normalizedhtml := "<p>Hello™€</p>" ], res);
+
+  res  := CleanupHoviHTMLText(`<p></p><P class='normal'>Hello</p><p></p>`);
+  Testeq([ resultlength := 5, normalizedhtml := "<p>Hello</p>" ], res);
+
+  res  := CleanupHoviHTMLText(`<p class='normal'>Hello \neverybody</p>`);
+  Testeq([ resultlength := 15, normalizedhtml := "<p>Hello everybody</p>" ], res);
+
+  res  := CleanupHoviHTMLText(`<p class='normal'>Hello\neverybody</p>`);
+  Testeq([ resultlength := 15, normalizedhtml := "<p>Hello everybody</p>" ], res);
+
+  res  := CleanupHoviHTMLText(`<ul><li>hi<li>everybody<p>there`);
+  Testeq([ resultlength := 16, normalizedhtml := "<ul><li>hi</li><li>everybody</li></ul><p>there</p>" ], res);
+
+  res  := CleanupHoviHTMLText(`<p>opening</p><p></p><ul><li>hi<li><li>everybody<l><p>there`);
+  Testeq([ resultlength := 23, normalizedhtml := "<p>opening</p><ul><li>hi</li><li>everybody</li></ul><p>there</p>" ], res);
+
+  res  := CleanupHoviHTMLText(`<p><ul><li><!-- nothing to see here! -->`);
+  Testeq([ resultlength := 0, normalizedhtml := "" ], res);
+
+  res  := CleanupHoviHTMLText(`<p class='normal'>Hello<br/>all</p><p><br data-wh-rte=\\"bogus\\"/></p><p class=\\"normal\\">regel 2</p>`);
+  Testeq([ resultlength := 15, normalizedhtml := "<p>Hello<br/>all</p><p></p><p>regel 2</p>" ], res);
+
+  res  := CleanupHoviHTMLText(`<p>${RepeatText("A", 2047 - 3 - 4)}`);
+  Testeq([ resultlength := 2040, normalizedhtml := `<p>${RepeatText("A", 2047 - 3 - 4)}</p>` ], res);
+}
+
+Runtestframework([ PTR TestCleanupHoviHTMLText ]);

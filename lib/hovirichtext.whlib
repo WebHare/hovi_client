@@ -15,6 +15,10 @@ PUBLIC RECORD FUNCTION CleanupHoviHTMLText(STRING inputtext)
     richdoc->rtdtype := "http://www.hovi.nl/xmlns/hovi_client/hovirtdtype";
   }
 
+  //RTD normalization should probably do this
+  inputtext := Substitute(inputtext,'\n',' ');
+  inputtext := Substitute(inputtext,'  ',' ');
+
   richdoc->body->Empty();
   richdoc->body->AppendChild(richdoc->body->ownerdocument->ImportNode(MakeXMLDocumentFromHTML(StringToBlob(`<html><body>${inputtext}</body></html>`))->body, TRUE));
   richdoc->structure->RestructureRichDocument(richdoc->body);
@@ -23,7 +27,6 @@ PUBLIC RECORD FUNCTION CleanupHoviHTMLText(STRING inputtext)
     toclean->RemoveAttribute("class");
   FOREVERY(OBJECT toclean FROM richdoc->body->GetElements('br[data-wh-rte=bogus]'))
     toclean->Remove();
-
 
   RETURN [ resultlength := UCLength(richdoc->body->textcontent)
          , normalizedhtml := richdoc->body->innerhtml
