@@ -360,13 +360,24 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
     RETURN EnforceStructure(RECORD[], this->Get(`/organization`).data);
   }
 
-  PUBLIC RECORD FUNCTION GetProduct(STRING orgid, STRING productid)
+  PUBLIC RECORD FUNCTION GetProduct(STRING orgid, STRING productid, RECORD options DEFAULTSTO DEFAULT RECORD)
   {
+    options := ValidateOptions(
+        [ allowmissing :=   FALSE
+        ], options);
+
     IF(productid = "")
       THROW NEW Exception(`productid is required`);
 
     //RETURN EnforceStructure([ data := product_structure ], this->Get(`/organization/${EncodeURL(orgid)}/product/${productid}`));
-    RETURN this->Get(`/organization/${EncodeURL(orgid)}/product/${productid}`);
+    RECORD retval := this->Get(`/organization/${EncodeURL(orgid)}/product/${productid}`,
+                        [ expecterrors := options.allowmissing ? [ "no_such_product" ] : STRING[]
+                        ]);
+
+    IF (retval.statuscode = 404) // only when allowmissing is TRUE
+      RETURN DEFAULT RECORD;
+
+    RETURN retval;
   }
 
   PUBLIC RECORD ARRAY FUNCTION GetProducts(STRING orgid)
@@ -383,16 +394,27 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
         ], this->Get(`/organization/${EncodeURL(orgid)}/product`).data);
   }
 
-  PUBLIC RECORD FUNCTION GetLocation(STRING orgid, STRING locationid)
+  PUBLIC RECORD FUNCTION GetLocation(STRING orgid, STRING locationid, RECORD options DEFAULTSTO DEFAULT RECORD)
   {
+    options := ValidateOptions(
+        [ allowmissing :=   FALSE
+        ], options);
+
     IF(locationid = "")
       THROW NEW Exception(`locationid is required`);
 
-    RETURN EnforceStructure(CELL
+    RECORD retval := EnforceStructure(CELL
         [ data :=   [ userkey :=  ""
                     , contacts := STRING[]
                     ]
-        ], this->Get(`/organization/${EncodeURL(orgid)}/location/${locationid}`));
+        ], this->Get(`/organization/${EncodeURL(orgid)}/location/${locationid}`,
+                  [ expecterrors := options.allowmissing ? [ "no_such_location" ] : STRING[]
+                  ]));
+
+    IF (retval.statuscode = 404) // only when allowmissing is TRUE
+      RETURN DEFAULT RECORD;
+
+    RETURN retval;
   }
 
   PUBLIC RECORD ARRAY FUNCTION GetLocations(STRING orgid)
@@ -405,14 +427,25 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
         ], this->Get(`/organization/${EncodeURL(orgid)}/location`).data);
   }
 
-  PUBLIC RECORD FUNCTION GetSubOrganization(STRING orgid, STRING suborganizationid)
+  PUBLIC RECORD FUNCTION GetSubOrganization(STRING orgid, STRING suborganizationid, RECORD options DEFAULTSTO DEFAULT RECORD)
   {
+    options := ValidateOptions(
+        [ allowmissing :=   FALSE
+        ], options);
+
     IF(suborganizationid = "")
       THROW NEW Exception(`suborganizationid is required`);
 
-    RETURN EnforceStructure(CELL
+    RECORD retval := EnforceStructure(CELL
         [ data := [ userkey := "" ]
-        ], this->Get(`/organization/${EncodeURL(orgid)}/suborganization/${suborganizationid}`));
+        ], this->Get(`/organization/${EncodeURL(orgid)}/suborganization/${suborganizationid}`,
+                  [ expecterrors := options.allowmissing ? [ "no_such_suborganization" ] : STRING[]
+                  ]));
+
+    IF (retval.statuscode = 404) // only when allowmissing is TRUE
+      RETURN DEFAULT RECORD;
+
+    RETURN retval;
   }
 
   PUBLIC RECORD ARRAY FUNCTION GetSubOrganizations(STRING orgid)
@@ -423,14 +456,25 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
         ], this->Get(`/organization/${EncodeURL(orgid)}/suborganization`).data);
   }
 
-  PUBLIC RECORD FUNCTION GetContact(STRING orgid, STRING contactid)
+  PUBLIC RECORD FUNCTION GetContact(STRING orgid, STRING contactid, RECORD options DEFAULTSTO DEFAULT RECORD)
   {
+    options := ValidateOptions(
+        [ allowmissing :=   FALSE
+        ], options);
+
     IF(contactid = "")
       THROW NEW Exception(`contactid is required`);
 
-    RETURN EnforceStructure(CELL
+    RECORD retval := EnforceStructure(CELL
         [ data :=   [ userkey := "" ]
-        ], this->Get(`/organization/${EncodeURL(orgid)}/contact/${contactid}`));
+        ], this->Get(`/organization/${EncodeURL(orgid)}/contact/${contactid}`, CELL
+                  [ expecterrors := options.allowmissing ? [ "no_such_contact" ] : STRING[]
+                  ]));
+
+    IF (retval.statuscode = 404) // only when allowmissing is TRUE
+      RETURN DEFAULT RECORD;
+
+    RETURN retval;
   }
 
   PUBLIC RECORD ARRAY FUNCTION GetContacts(STRING orgid)
@@ -441,14 +485,25 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
         ], this->Get(`/organization/${EncodeURL(orgid)}/contact`).data);
   }
 
-  PUBLIC RECORD FUNCTION GetEvent(STRING orgid, STRING eventid)
+  PUBLIC RECORD FUNCTION GetEvent(STRING orgid, STRING eventid, RECORD options DEFAULTSTO DEFAULT RECORD)
   {
+    options := ValidateOptions(
+        [ allowmissing :=   FALSE
+        ], options);
+
     IF(eventid = "")
       THROW NEW Exception(`eventid is required`);
 
-    RETURN EnforceStructure(CELL
+    RECORD retval := EnforceStructure(CELL
         [ data :=   [ userkey := "" ]
-        ], this->Get(`/organization/${EncodeURL(orgid)}/event/${eventid}`));
+        ], this->Get(`/organization/${EncodeURL(orgid)}/event/${eventid}`,
+                  [ expecterrors := options.allowmissing ? [ "no_such_event" ] : STRING[]
+                  ]));
+
+    IF (retval.statuscode = 404) // only when allowmissing is TRUE
+      RETURN DEFAULT RECORD;
+
+    RETURN retval;
   }
 
   PUBLIC RECORD ARRAY FUNCTION GetEvents(STRING orgid)
@@ -461,14 +516,25 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
         ], this->Get(`/organization/${EncodeURL(orgid)}/event`).data);
   }
 
-  PUBLIC RECORD FUNCTION GetMedia(STRING orgid, STRING mediaid)
+  PUBLIC RECORD FUNCTION GetMedia(STRING orgid, STRING mediaid, RECORD options DEFAULTSTO DEFAULT RECORD)
   {
+    options := ValidateOptions(
+        [ allowmissing :=   FALSE
+        ], options);
+
     IF(mediaid = "")
       THROW NEW Exception(`mediaid is required`);
 
-    RETURN EnforceStructure(CELL
+    RECORD retval := EnforceStructure(CELL
         [ data :=   [ userkey := "" ]
-        ], this->Get(`/organization/${EncodeURL(orgid)}/media/${mediaid}`));
+        ], this->Get(`/organization/${EncodeURL(orgid)}/media/${mediaid}`,
+                  [ expecterrors := options.allowmissing ? [ "no_such_media" ] : STRING[]
+                  ]));
+
+    IF (retval.statuscode = 404) // only when allowmissing is TRUE
+      RETURN DEFAULT RECORD;
+
+    RETURN retval;
   }
 
   PUBLIC RECORD ARRAY FUNCTION GetMedias(STRING orgid)
@@ -562,13 +628,24 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
     RETURN EnforceStructure([ title := DEFAULT RECORD ], this->Get(`/domain/${EncodeURL(domainname)}/${EncodeURL(rowkey)}`).data);
   }
 
-  PUBLIC RECORD FUNCTION GetOrganization(STRING orgid)
+  PUBLIC RECORD FUNCTION GetOrganization(STRING orgid, RECORD options DEFAULTSTO DEFAULT RECORD)
   {
-    RETURN EnforceStructure(CELL
+    options := ValidateOptions(
+        [ allowmissing :=   FALSE
+        ], options);
+
+    RECORD retval := EnforceStructure(CELL
         [ data := [ locations := STRING[]
                   , shortcode := ""
                   ]
-        ], this->Get(`/organization/${EncodeURL(orgid)}`));
+        ], this->Get(`/organization/${EncodeURL(orgid)}`,
+                  [ expecterrors := options.allowmissing ? [ "no_such_organization" ] : STRING[]
+                  ]));
+
+    IF (retval.statuscode = 404) // only when allowmissing is TRUE
+      RETURN DEFAULT RECORD;
+
+    RETURN retval;
   }
 
   PUBLIC RECORD FUNCTION GetCrohoStudy(STRING crohostudy)
