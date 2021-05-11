@@ -41,6 +41,16 @@ MACRO TestCleanupHoviHTMLText()
 
   res  := CleanupHoviHTMLText(`<p>${RepeatText("A", 2047 - 3 - 4)}`);
   Testeq([ resultlength := 2040, normalizedhtml := `<p>${RepeatText("A", 2047 - 3 - 4)}</p>` ], res);
+
+  res  := CleanupHoviHTMLText('<html><body><p class=\"normal\">Tekst.<br/><br/><\/body><\/html>');
+  Testeq([ resultlength := 6, normalizedhtml := `<p>Tekst.<br/></p>` ], res);
+  res  := CleanupHoviHTMLText('<html><body><p class=\"normal\">Tekst.<br/><\/body><\/html>');
+  Testeq([ resultlength := 6, normalizedhtml := `<p>Tekst.</p>` ], res);
+
+  res  := CleanupHoviHTMLText('<html><body><p class=\"normal\">Tekst.<br/><br data-wh-rte=\"bogus\"/><\/p><\/body><\/html>');
+  Testeq([ resultlength := 6, normalizedhtml := `<p>Tekst.<br/></p>` ], res);
+  res  := CleanupHoviHTMLText('<html><body><p>Tekst.<br/></p><\/body><\/html>');
+  Testeq([ resultlength := 6, normalizedhtml := `<p>Tekst.<br/></p>` ], res);
 }
 
 Runtestframework([ PTR TestCleanupHoviHTMLText ]);

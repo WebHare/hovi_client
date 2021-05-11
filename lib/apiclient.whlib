@@ -8,9 +8,9 @@ LOADLIB "mod::system/lib/configure.whlib";
 
 OBJECT currenthoviclient;
 
-CONSTANT STRING hovieditor_use_apiversion := "2";
+CONSTANT STRING hovieditor_use_apiversion := "3";
 
-//needed for 'quick' access to these fields in harescript without needing to a full openapi encode/decoe
+//needed for 'quick' access to these fields in harescript without needing to a full openapi encode/decode
 PUBLIC CONSTANT RECORD __hovieditor_apitranslations := CELL
     [ "accreditations"
     , "accrOrganization"
