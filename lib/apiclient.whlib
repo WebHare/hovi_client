@@ -286,7 +286,7 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
         ];
   }
 
-  PUBLIC RECORD FUNCTION SendRequestJSON(STRING method, STRING url, VARIANT postbody, RECORD options DEFAULTSTO DEFAULT RECORD)
+  PUBLIC RECORD FUNCTION SendRequestJSON(STRING method, STRING url, VARIANT postbody DEFAULTSTO DEFAULT RECORD, RECORD options DEFAULTSTO DEFAULT RECORD)
   {
     options := ValidateOptions(
         [ ifmatch :=    ""
@@ -659,6 +659,11 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
         [ apistate :=           ""
         , hovistatelistener :=  ""
         ], this->Get(`/state`).data);
+  }
+
+  PUBLIC MACRO DeleteEvent(STRING orgid, STRING eventid)
+  {
+    this->SendRequestJSON("DELETE", `/organization/${EncodeURL(orgid)}/event/${eventid}`);
   }
 >;
 
