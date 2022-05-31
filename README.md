@@ -6,7 +6,7 @@ To refer to this module, add this to your moduledefinition.xml packaging:
 
 ```xml
   <packaging download="true">
-    <dependency module="hovi_client" repository="https://gitlab.com/webhare/apis/hovi_client.git" moduleversion=">=3.0.0" />
+    <dependency module="hovi_client" repository="https://gitlab.com/webhare/apis/hovi_client.git" moduleversion=">=3.1.0" />
   </packaging>
  ```
 
