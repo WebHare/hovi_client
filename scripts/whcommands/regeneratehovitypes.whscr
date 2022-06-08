@@ -1,0 +1,347 @@
+<?wh
+
+LOADLIB "wh::files.whlib";
+LOADLIB "wh::money.whlib";
+LOADLIB "wh::os.whlib";
+LOADLIB "wh::util/algorithms.whlib";
+LOADLIB "wh::util/comparisons.whlib";
+
+LOADLIB "mod::system/lib/configure.whlib";
+LOADLIB "mod::system/lib/resources.whlib";
+
+LOADLIB "mod::hovi_client/lib/apiclient.whlib";
+
+
+IF (GetDTAPStage() != "development")
+  THROW NEW Exception(`Only allowed on DTAP stage "development" (current: ${EncodeJSON(GetDTAPStage())})`);
+
+/* after changing the data in the top of this file, run
+    wh hovi_client:regenerateitemdata
+*/
+
+/// Field that is used for the name of an item
+RECORD namefields :=
+    [ product :=          "productname"
+    , cooperation :=      "productname"
+    , location :=         "locationname"
+    , organization :=     "brinname"
+    , suborganization :=  "suborganizationname"
+    , event :=            "eventname"
+    , contact :=          "rolename"
+    , media :=            "description"
+    ];
+
+RECORD backupnamefields :=
+    [ product :=          "crohoname"
+    , cooperation :=      "crohoname"
+    ];
+
+/** List of fields that are stored in WRD for the draft/published cache
+    IMPORTANT! When updating this list, also update the tag for the runonce script
+    scripts/runonce/updatecachefields.whscr, to fill new cached fields.
+*/
+RECORD getfields :=
+    [ product :=          STRING[ "producttype", "productlevel", "location", "croho", "crohoname" ]
+    , location :=         STRING[ "locationtype" ]
+    , organization :=     STRING[ "brin" ]
+    , suborganization :=  STRING[]
+    , event :=            STRING[ "eventtype", "locationtype", "eventstartdate", "eventenddate", "locations" ]
+    , contact :=          STRING[ "email" ]
+    , media :=            STRING[ "mediatype", "medialink" ]
+    , cooperation :=      STRING[]
+    ];
+
+/// Rowkey names for arrays with rowkeys
+RECORD arrayrowkeys :=
+    [ productforms :=     "productform"
+    ];
+
+/// Icons for the different item types
+RECORD icons :=
+    [ product :=          "hovi_client:hovimanager"
+    , cooperation :=      "hovi_client:hovimanager"
+    , event :=            "hovi_client:events"
+    , location :=         "hovi_client:locations"
+    , organization :=     ""
+    , suborganization :=  "hovi_client:suborganizations"
+    , contact :=          "hovi_client:contacts"
+    , media :=            "hovi_client:media"
+    ];
+
+RECORD duplicateitemerasefields :=
+    [ event :=            [ "eventstartdate", "eventenddate" ]
+    ];
+
+RECORD ARRAY FUNCTION GetRecursiveFields(RECORD ARRAY fields)
+{
+  RECORD ARRAY retval := fields;
+  FOREVERY (RECORD field FROM fields)
+    IF (field.type = "array")
+      retval := retval CONCAT GetRecursiveFields(field.fields);
+  RETURN retval;
+}
+
+BOOLEAN FUNCTION HasReference(RECORD ARRAY fields, STRING name)
+{
+  FOREVERY (RECORD rec FROM fields)
+  {
+    IF ((rec.type = "domain" OR rec.type = "domainarray") AND rec.domain = name)
+      RETURN TRUE;
+    IF (rec.type = "array" AND HasReference(rec.fields, name))
+      RETURN TRUE;
+  }
+  RETURN FALSE;
+}
+
+STRING ARRAY FUNCTION GetReferencingTypes(RECORD ARRAY tables, STRING name)
+{
+  STRING ARRAY refs;
+  FOREVERY (RECORD rec FROM tables)
+    IF (HasReference(rec.fields, name) AND NOT rec.isvirtual)
+      INSERT rec.name INTO refs AT END;
+  RETURN refs;
+}
+
+RECORD FUNCTION GetStructure(RECORD ARRAY fields)
+{
+  RECORD struc;
+  FOREVERY (RECORD field FROM fields)
+  {
+    VARIANT value;
+    IF (field.translated)
+      value := DEFAULT RECORD;
+    ELSE
+    {
+      SWITCH (field.type)
+      {
+        CASE "text"           { value := ""; }
+        CASE "percentage"     { value := -1; }
+        CASE "integer"        { value := 0; }
+        CASE "domain"         { value := ""; }
+        CASE "money"          { value := 0m; }
+        CASE "url"            { value := ""; }
+        CASE "enum"           { value := ""; }
+        CASE "enumarray"      { value := STRING[]; }
+        CASE "address"        { value := DEFAULT RECORD; }
+        CASE "boolean"        { value := FALSE; }
+        CASE "domainarray"    { value := STRING[]; }
+        CASE "textarray"      { value := STRING[]; }
+        CASE "date"           { value := DEFAULT DATETIME; }
+        CASE "datetime"       { value := DEFAULT DATETIME; }
+        CASE "array"          { value := [ GetStructure(field.fields) ]; }
+        DEFAULT
+        {
+          THROW NEW Exception(`Unhandled type ${field.type}`);
+        }
+      }
+    }
+    struc := CellInsert(struc, field.jsonname, value);
+  }
+  RETURN struc;
+}
+
+STRING FUNCTION PrintHSValue(VARIANT value, INTEGER indent)
+{
+  SWITCH (TypeID(value))
+  {
+    CASE TypeID(BOOLEAN)        { RETURN value ? "TRUE" : "FALSE"; }
+    CASE TypeID(STRING)         { RETURN EncodeJSON(value); }
+    CASE TypeID(INTEGER)        { RETURN ToString(value); }
+    CASE TypeID(MONEY)          { RETURN FormatMoney(value,0,'.','',FALSE) || "m"; }
+    CASE TypeID(DATETIME)
+    {
+      IF (value = DEFAULT DATETIME)
+        RETURN "DEFAULT DATETIME";
+      ABORT(value);
+    }
+    CASE TypeID(STRING ARRAY)
+    {
+      IF (LENGTH(value) = 0)
+        RETURN `STRING[]`;
+      ELSE
+      {
+        STRING s;
+        FOREVERY (VARIANT v FROM value)
+        {
+          s := s || (#v = 0 ? "[ " : ", ");
+          s := s || PrintHSValue(v, indent);
+        }
+        RETURN s || ` ]`;
+      }
+    }
+    CASE TypeID(RECORD)
+    {
+      IF (NOT RecordExists(value))
+        RETURN "DEFAULT RECORD";
+      RECORD ARRAY cells := UnpackRecord(value);
+      IF (IsDefaultValue(cells))
+        RETURN `CELL[]`;
+      STRING s;
+      INTEGER namelen := SELECT AS INTEGER 2 * (Max(LENGTH(name) + 1) / 2) + 4 FROM cells;
+      FOREVERY (RECORD rec FROM
+          SELECT *
+            FROM cells
+        ORDER BY TypeID(cells.value) IN [ TypeID(RECORD), TypeID(RECORD ARRAY) ]
+               , name)
+      {
+        STRING tidprefix;
+        IF (rec.name LIKE "*TID" AND IsValueSet(rec.value))
+          tidprefix := `/*tid*/`;
+        STRING valuestr := PrintHSValue(rec.value, indent + 6);
+        s := s || SubString(TrimWhitespace(`X\n${RepeatText(" ", indent)}${#rec = 0? "[ " : ", "}${Left(ToLowercase(rec.name) || " :=" || (valuestr LIKE "\n*" ? "" : RepeatText(" ", namelen)), namelen)}${tidprefix}` || valuestr), 1);
+
+      }
+      RETURN s || `\n${RepeatText(" ", indent)}]`;
+    }
+    CASE TypeID(RECORD ARRAY)
+    {
+      IF (IsDefaultValue(value))
+        RETURN "RECORD[]";
+      STRING s;
+      FOREVERY (RECORD rec FROM value)
+      {
+        s := s || `\n${RepeatText(" ", indent)}${#rec = 0? "[ " : ", "}${TrimWhitespace(PrintHSValue(rec, indent + 2))}`;
+      }
+      RETURN s || `\n${RepeatText(" ", indent)}]`;
+    }
+  }
+  ABORT(GetTypeName(TypeID(value)));
+}
+
+BOOLEAN FUNCTION ContainsTranslated(RECORD field)
+{
+  BOOLEAN istranslated := field.translated;
+  IF (field.type = "array")
+    FOREVERY (RECORD subfield FROM field.fields)
+      istranslated := istranslated OR ContainsTranslated(subfield);
+  RETURN istranslated;
+}
+
+RECORD FUNCTION GetSubFields(STRING elttype, STRING basename, RECORD ARRAY basefields)
+{
+  RETURN
+      [ subfields :=
+            SELECT name
+                 , jsonname
+                 , type
+                 , istranslated :=    translated
+                 , domain :=          type LIKE "domain*" ? domain : ""
+                 , tid :=             /*tid*/`hovi_client:itemtypes.${elttype}.${ToLowercase(basename)}.${ToLowercase(jsonname)}`
+                 , ...(type = "array"
+                            ? GetSubFields(elttype, `${basename}.${jsonname}`, fields)
+                            : DEFAULT RECORD)
+              FROM basefields
+       ];
+}
+
+RECORD FUNCTION GenerateItemData()
+{
+  RECORD fieldspec := MakeFunctionPtr("mod::hovi_database/lib/internal/fieldspec.whlib#GetHOVIMasterspec")(GetHoviClientAPIVersion());
+  RECORD retval;
+  FOREVERY (RECORD rec FROM SELECT * FROM fieldspec.tables WHERE NOT isdomain)
+  {
+    RECORD ARRAY allfields := GetRecursiveFields(rec.fields);
+
+    RECORD ARRAY mainfields := SELECT *, ismulti := FALSE, basename := "" FROM rec.fields;
+
+    STRING ARRAY fieldarraynames, duplicateerasefields;
+    RECORD ARRAY fieldarrays;
+    FOREVERY (RECORD f FROM rec.fields)
+      IF (f.type = "array" AND f.omitdefaultvalues)
+      {
+        INSERT
+            [ name :=         ToLowercase(f.jsonname)
+            , title :=        f.jsonname
+            , rowkeyfield :=  (SELECT AS STRING ToUppercase(jsonname) FROM f.fields WHERE name = GetCell(arrayrowkeys, f.name))
+            ] INTO fieldarrays AT END;
+        INSERT f.name INTO fieldarraynames AT END;
+        mainfields := mainfields CONCAT SELECT *, ismulti := TRUE, basename := f.name || "." FROM f.fields;
+      }
+
+    IF (CellExists(duplicateitemerasefields, rec.name))
+      duplicateerasefields := GetCell(duplicateitemerasefields, rec.name);
+
+    RECORD ARRAY fields :=
+        SELECT name :=            ToLowercase(jsonname)
+             , jsonname
+             , tid :=             /*tid*/`hovi_client:itemtypes.${rec.name}.${ToLowercase(jsonname)}`
+             , type
+             , domain :=          type LIKE "domain*" ? domain : ""
+             , ismulti
+             , istranslated :=    translated
+             , containstranslated := ContainsTranslated(mainfields)
+             , isreadonly :=      readonly OR isvirtual
+             , isrequired :=      required
+             , maxlength :=       type IN [ "text", "url" ] ? maxlength : -1
+             , ...(type = "array"
+                        ? name NOT IN fieldarraynames
+                              ? GetSubFields(rec.name, /*basename || */jsonname, COLUMN fields)
+                              : GetSubFields(rec.name, /*basename || */jsonname, SELECT * FROM COLUMN fields WHERE name = GetCell(arrayrowkeys, mainfields.name))
+                        : DEFAULT RECORD)
+          FROM mainfields
+         WHERE NOT listonly
+      ORDER BY name;
+
+    retval := CellInsert(retval, rec.jsonname, CELL
+        [ rowkeyfield :=      (SELECT AS STRING ToLowercase(jsonname) FROM rec.fields WHERE name = rec.primarykey)
+        , titlefield :=       (SELECT AS STRING ToLowercase(jsonname) FROM rec.fields WHERE name = GetCell(namefields, rec.name))
+        , backuptitlefield := CellExists(backupnamefields, rec.name) ? (SELECT AS STRING ToLowercase(jsonname) FROM rec.fields WHERE name = GetCell(backupnamefields, rec.name)) : ""
+        , getfields :=        GetSortedSet(SELECT AS STRING ARRAY ToLowercase(jsonname) FROM rec.fields WHERE name IN GetCell(getfields, rec.name))
+        , textarrayfields :=  GetSortedSet(SELECT AS STRING ARRAY ToLowercase(jsonname) FROM allfields WHERE type = "textarray")
+        , structure :=        GetStructure(rec.fields)
+        , fieldarrays
+        , fields
+        , tid :=              /*tid*/`hovi_client:itemtypes.hovitypes.${ToLowercase(rec.jsonname)}`
+        , multipletid :=      /*tid*/`hovi_client:itemtypes.hovitypes.${ToLowercase(rec.jsonname)}s`
+        , icon :=             GetCell(icons, rec.jsonname)
+        , referencingtypes := GetReferencingTypes(fieldspec.tables, rec.name)
+        , duplicateerasefields
+        , rec.isvirtual
+        ]);
+  }
+  RETURN retval;
+}
+
+STRING FUNCTION GenerateFile()
+{
+  RECORD res := GenerateItemData();
+  RETURN
+`<?wh
+
+
+/* This file is generated from hovimaster.xml from hovi_database
+   Regenerate with:
+     wh hovi_client:regeneratehovitypes
+*/
+
+PUBLIC CONSTANT RECORD hovi_typeconfigs :=${PrintHSValue(res, 4)};
+
+PUBLIC RECORD FUNCTION __GetHoviTypesForCheck()
+{
+ RETURN hovi_typeconfigs;
+}
+`;
+}
+
+
+
+RECORD args := ParseArguments(GetConsoleArguments(),
+    [ [ name :=   "check",    type := "switch" ]
+    ]);
+
+IF (args.check)
+{
+  RECORD current := GenerateItemData();
+  //we use MakeFunctionPtr so we don't crash if hovitypes.whlib fails to compile
+  RECORD config :=  MakeFunctionPtr("mod::hovi_client/lib/hovitypes.whlib#__GetHoviTypesForCheck")();
+
+  IF (EncodeHSON(current) != EncodeHSON(config))
+  {
+    PRINT(`hovitypes.whlib must be regenerated, has the following changes wrt expected data:\n`);
+    PRINT(SimpleTextDiff(AnyToString(current, "tree"), AnyToString(config, "tree")));
+    SetConsoleExitCode(1);
+  }
+  TerminateScript();
+}
+
+StoreDiskFile(GetWebHareResourceDiskPath("mod::hovi_client/lib/hovitypes.whlib"), StringToBlob(GenerateFile()), [ overwrite := TRUE ]);

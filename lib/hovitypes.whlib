@@ -1,0 +1,2414 @@
+<?wh
+
+
+/* This file is generated from hovimaster.xml from hovi_database
+   Regenerate with:
+     wh hovi_client:regeneratehovitypes
+*/
+
+PUBLIC CONSTANT RECORD hovi_typeconfigs :=
+    [ contact :=
+          [ backuptitlefield :=     ""
+          , duplicateerasefields := STRING[]
+          , getfields :=            [ "email" ]
+          , icon :=                 "hovi_client:contacts"
+          , isvirtual :=            FALSE
+          , multipletid :=          /*tid*/"hovi_client:itemtypes.hovitypes.contacts"
+          , referencingtypes :=     [ "product", "location" ]
+          , rowkeyfield :=          "contactid"
+          , textarrayfields :=      STRING[]
+          , tid :=                  /*tid*/"hovi_client:itemtypes.hovitypes.contact"
+          , titlefield :=           "rolename"
+          , fieldarrays :=          RECORD[]
+          , fields :=
+                [ [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "contactId"
+                  , maxlength :=          0
+                  , name :=               "contactid"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.contact.contactid"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "subject"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "contactSubjects"
+                  , maxlength :=          -1
+                  , name :=               "contactsubjects"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.contact.contactsubjects"
+                  , type :=               "domainarray"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "email"
+                  , maxlength :=          100
+                  , name :=               "email"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.contact.email"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "organization"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "organization"
+                  , maxlength :=          -1
+                  , name :=               "organization"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.contact.organization"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "postalAddress"
+                  , maxlength :=          -1
+                  , name :=               "postaladdress"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.contact.postaladdress"
+                  , type :=               "address"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "roleName"
+                  , maxlength :=          100
+                  , name :=               "rolename"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.contact.rolename"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "userKey"
+                  , maxlength :=          500
+                  , name :=               "userkey"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.contact.userkey"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "visitorAddress"
+                  , maxlength :=          -1
+                  , name :=               "visitoraddress"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.contact.visitoraddress"
+                  , type :=               "address"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "webLink"
+                  , maxlength :=          1000
+                  , name :=               "weblink"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.contact.weblink"
+                  , type :=               "url"
+                  ]
+                ]
+          , structure :=
+                [ contactid :=        ""
+                , contactsubjects :=  STRING[]
+                , email :=            ""
+                , organization :=     ""
+                , userkey :=          ""
+                , postaladdress :=    DEFAULT RECORD
+                , rolename :=         DEFAULT RECORD
+                , visitoraddress :=   DEFAULT RECORD
+                , weblink :=          DEFAULT RECORD
+                ]
+          ]
+    , cooperation :=
+          [ backuptitlefield :=     "crohoname"
+          , duplicateerasefields := STRING[]
+          , getfields :=            STRING[]
+          , icon :=                 "hovi_client:hovimanager"
+          , isvirtual :=            TRUE
+          , multipletid :=          /*tid*/"hovi_client:itemtypes.hovitypes.cooperations"
+          , referencingtypes :=     STRING[]
+          , rowkeyfield :=          "productid"
+          , textarrayfields :=      STRING[]
+          , tid :=                  /*tid*/"hovi_client:itemtypes.hovitypes.cooperation"
+          , titlefield :=           "productname"
+          , fieldarrays :=          RECORD[]
+          , fields :=
+                [ [ containstranslated := FALSE
+                  , domain :=             "crohostudy"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "croho"
+                  , maxlength :=          -1
+                  , name :=               "croho"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.cooperation.croho"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "crohoName"
+                  , maxlength :=          0
+                  , name :=               "crohoname"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.cooperation.crohoname"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "location"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "location"
+                  , maxlength :=          -1
+                  , name :=               "location"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.cooperation.location"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "organization"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "organization"
+                  , maxlength :=          -1
+                  , name :=               "organization"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.cooperation.organization"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "product"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "productId"
+                  , maxlength :=          -1
+                  , name :=               "productid"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.cooperation.productid"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "productlevel"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "productLevel"
+                  , maxlength :=          -1
+                  , name :=               "productlevel"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.cooperation.productlevel"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "productName"
+                  , maxlength :=          100
+                  , name :=               "productname"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.cooperation.productname"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "producttype"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         TRUE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "productType"
+                  , maxlength :=          -1
+                  , name :=               "producttype"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.cooperation.producttype"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "userKey"
+                  , maxlength :=          500
+                  , name :=               "userkey"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.cooperation.userkey"
+                  , type :=               "text"
+                  ]
+                ]
+          , structure :=
+                [ availableforms := STRING[]
+                , croho :=          ""
+                , location :=       ""
+                , organization :=   ""
+                , productid :=      ""
+                , productlevel :=   ""
+                , producttype :=    ""
+                , userkey :=        ""
+                , crohoname :=      DEFAULT RECORD
+                , productname :=    DEFAULT RECORD
+                ]
+          ]
+    , event :=
+          [ backuptitlefield :=     ""
+          , duplicateerasefields := [ "eventstartdate", "eventenddate" ]
+          , getfields :=            [ "eventenddate", "eventstartdate", "eventtype", "locations", "locationtype" ]
+          , icon :=                 "hovi_client:events"
+          , isvirtual :=            FALSE
+          , multipletid :=          /*tid*/"hovi_client:itemtypes.hovitypes.events"
+          , referencingtypes :=     STRING[]
+          , rowkeyfield :=          "eventid"
+          , textarrayfields :=      [ "targetregions" ]
+          , tid :=                  /*tid*/"hovi_client:itemtypes.hovitypes.event"
+          , titlefield :=           "eventname"
+          , fieldarrays :=          RECORD[]
+          , fields :=
+                [ [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "description"
+                  , maxlength :=          300
+                  , name :=               "description"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.description"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         TRUE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "eventEndDate"
+                  , maxlength :=          -1
+                  , name :=               "eventenddate"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.eventenddate"
+                  , type :=               "datetime"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "eventId"
+                  , maxlength :=          0
+                  , name :=               "eventid"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.eventid"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "productlevel"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "eventLevels"
+                  , maxlength :=          -1
+                  , name :=               "eventlevels"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.eventlevels"
+                  , type :=               "domainarray"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "eventName"
+                  , maxlength :=          100
+                  , name :=               "eventname"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.eventname"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         TRUE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "eventPlanning"
+                  , maxlength :=          -1
+                  , name :=               "eventplanning"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.eventplanning"
+                  , type :=               "enum"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         TRUE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "eventStartDate"
+                  , maxlength :=          -1
+                  , name :=               "eventstartdate"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.eventstartdate"
+                  , type :=               "datetime"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "eventtype"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         TRUE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "eventType"
+                  , maxlength :=          -1
+                  , name :=               "eventtype"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.eventtype"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "informationRegistrationURL"
+                  , maxlength :=          1000
+                  , name :=               "informationregistrationurl"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.informationregistrationurl"
+                  , type :=               "url"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "location"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "locations"
+                  , maxlength :=          -1
+                  , name :=               "locations"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.locations"
+                  , type :=               "domainarray"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         TRUE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "locationType"
+                  , maxlength :=          -1
+                  , name :=               "locationtype"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.locationtype"
+                  , type :=               "enum"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "onlineEventURL"
+                  , maxlength :=          1000
+                  , name :=               "onlineeventurl"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.onlineeventurl"
+                  , type :=               "url"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "organization"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "organization"
+                  , maxlength :=          -1
+                  , name :=               "organization"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.organization"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         TRUE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "participatingProducts"
+                  , maxlength :=          -1
+                  , name :=               "participatingproducts"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.participatingproducts"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       "crohostudy"
+                          , istranslated := FALSE
+                          , jsonname :=     "croho"
+                          , name :=         "croho"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.event.participatingproducts.croho"
+                          , type :=         "domain"
+                          ]
+                        , [ domain :=       "organization"
+                          , istranslated := FALSE
+                          , jsonname :=     "organization"
+                          , name :=         "organization"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.event.participatingproducts.organization"
+                          , type :=         "domain"
+                          ]
+                        , [ domain :=       "product"
+                          , istranslated := FALSE
+                          , jsonname :=     "product"
+                          , name :=         "product"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.event.participatingproducts.product"
+                          , type :=         "domain"
+                          ]
+                        , [ domain :=       "productform"
+                          , istranslated := FALSE
+                          , jsonname :=     "productForms"
+                          , name :=         "productforms"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.event.participatingproducts.productforms"
+                          , type :=         "domainarray"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "productlevel"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "targetLevels"
+                  , maxlength :=          -1
+                  , name :=               "targetlevels"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.targetlevels"
+                  , type :=               "domainarray"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "targetRegions"
+                  , maxlength :=          -1
+                  , name :=               "targetregions"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.targetregions"
+                  , type :=               "textarray"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "userKey"
+                  , maxlength :=          500
+                  , name :=               "userkey"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.event.userkey"
+                  , type :=               "text"
+                  ]
+                ]
+          , structure :=
+                [ eventenddate :=               DEFAULT DATETIME
+                , eventid :=                    ""
+                , eventlevels :=                STRING[]
+                , eventplanning :=              ""
+                , eventstartdate :=             DEFAULT DATETIME
+                , eventtype :=                  ""
+                , locations :=                  STRING[]
+                , locationtype :=               ""
+                , organization :=               ""
+                , targetlevels :=               STRING[]
+                , targetregions :=              STRING[]
+                , userkey :=                    ""
+                , description :=                DEFAULT RECORD
+                , eventname :=                  DEFAULT RECORD
+                , informationregistrationurl := DEFAULT RECORD
+                , onlineeventurl :=             DEFAULT RECORD
+                , participatingproducts :=
+                      [ [ croho :=        ""
+                        , organization := ""
+                        , product :=      ""
+                        , productforms := STRING[]
+                        ]
+                      ]
+                ]
+          ]
+    , location :=
+          [ backuptitlefield :=     ""
+          , duplicateerasefields := STRING[]
+          , getfields :=            [ "locationtype" ]
+          , icon :=                 "hovi_client:locations"
+          , isvirtual :=            FALSE
+          , multipletid :=          /*tid*/"hovi_client:itemtypes.hovitypes.locations"
+          , referencingtypes :=     [ "product", "location", "event" ]
+          , rowkeyfield :=          "locationid"
+          , textarrayfields :=      STRING[]
+          , tid :=                  /*tid*/"hovi_client:itemtypes.hovitypes.location"
+          , titlefield :=           "locationname"
+          , fieldarrays :=          RECORD[]
+          , fields :=
+                [ [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "brinVolg"
+                  , maxlength :=          0
+                  , name :=               "brinvolg"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.location.brinvolg"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "contact"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "contacts"
+                  , maxlength :=          -1
+                  , name :=               "contacts"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.location.contacts"
+                  , type :=               "domainarray"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "courseCityName"
+                  , maxlength :=          80
+                  , name :=               "coursecityname"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.location.coursecityname"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "description"
+                  , maxlength :=          1400
+                  , name :=               "description"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.location.description"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "locationEmail"
+                  , maxlength :=          100
+                  , name :=               "locationemail"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.location.locationemail"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "locationId"
+                  , maxlength :=          0
+                  , name :=               "locationid"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.location.locationid"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "locationName"
+                  , maxlength :=          100
+                  , name :=               "locationname"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.location.locationname"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "locationPhone"
+                  , maxlength :=          100
+                  , name :=               "locationphone"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.location.locationphone"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "locationtype"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         TRUE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "locationType"
+                  , maxlength :=          -1
+                  , name :=               "locationtype"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.location.locationtype"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "organization"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "organization"
+                  , maxlength :=          -1
+                  , name :=               "organization"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.location.organization"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "location"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "parentLocation"
+                  , maxlength :=          -1
+                  , name :=               "parentlocation"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.location.parentlocation"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "userKey"
+                  , maxlength :=          500
+                  , name :=               "userkey"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.location.userkey"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "vestigingSK123Id"
+                  , maxlength :=          10
+                  , name :=               "vestigingsk123id"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.location.vestigingsk123id"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "visitorAddress"
+                  , maxlength :=          -1
+                  , name :=               "visitoraddress"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.location.visitoraddress"
+                  , type :=               "address"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "webLink"
+                  , maxlength :=          1000
+                  , name :=               "weblink"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.location.weblink"
+                  , type :=               "url"
+                  ]
+                ]
+          , structure :=
+                [ brinvolg :=         ""
+                , contacts :=         STRING[]
+                , coursecityname :=   ""
+                , locationemail :=    ""
+                , locationid :=       ""
+                , locationphone :=    ""
+                , locationtype :=     ""
+                , organization :=     ""
+                , parentlocation :=   ""
+                , userkey :=          ""
+                , vestigingsk123id := ""
+                , description :=      DEFAULT RECORD
+                , locationname :=     DEFAULT RECORD
+                , visitoraddress :=   DEFAULT RECORD
+                , weblink :=          DEFAULT RECORD
+                ]
+          ]
+    , media :=
+          [ backuptitlefield :=     ""
+          , duplicateerasefields := STRING[]
+          , getfields :=            [ "medialink", "mediatype" ]
+          , icon :=                 "hovi_client:media"
+          , isvirtual :=            FALSE
+          , multipletid :=          /*tid*/"hovi_client:itemtypes.hovitypes.medias"
+          , referencingtypes :=     STRING[]
+          , rowkeyfield :=          "mediaid"
+          , textarrayfields :=      STRING[]
+          , tid :=                  /*tid*/"hovi_client:itemtypes.hovitypes.media"
+          , titlefield :=           "description"
+          , fieldarrays :=          RECORD[]
+          , fields :=
+                [ [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         TRUE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "description"
+                  , maxlength :=          300
+                  , name :=               "description"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.media.description"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "mediaId"
+                  , maxlength :=          0
+                  , name :=               "mediaid"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.media.mediaid"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         TRUE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "mediaLink"
+                  , maxlength :=          1000
+                  , name :=               "medialink"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.media.medialink"
+                  , type :=               "url"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         TRUE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "mediaType"
+                  , maxlength :=          -1
+                  , name :=               "mediatype"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.media.mediatype"
+                  , type :=               "enum"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "organization"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "organization"
+                  , maxlength :=          -1
+                  , name :=               "organization"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.media.organization"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "userKey"
+                  , maxlength :=          500
+                  , name :=               "userkey"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.media.userkey"
+                  , type :=               "text"
+                  ]
+                ]
+          , structure :=
+                [ description :=  ""
+                , mediaid :=      ""
+                , medialink :=    ""
+                , mediatype :=    ""
+                , organization := ""
+                , userkey :=      ""
+                ]
+          ]
+    , organization :=
+          [ backuptitlefield :=     ""
+          , duplicateerasefields := STRING[]
+          , getfields :=            [ "brin" ]
+          , icon :=                 ""
+          , isvirtual :=            FALSE
+          , multipletid :=          /*tid*/"hovi_client:itemtypes.hovitypes.organizations"
+          , referencingtypes :=     [ "product", "suborganization", "location", "contact", "event", "media" ]
+          , rowkeyfield :=          "organizationid"
+          , textarrayfields :=      STRING[]
+          , tid :=                  /*tid*/"hovi_client:itemtypes.hovitypes.organization"
+          , titlefield :=           "brinname"
+          , fieldarrays :=          RECORD[]
+          , fields :=
+                [ [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "brin"
+                  , maxlength :=          0
+                  , name :=               "brin"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.organization.brin"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "brinName"
+                  , maxlength :=          0
+                  , name :=               "brinname"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.organization.brinname"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "description"
+                  , maxlength :=          1400
+                  , name :=               "description"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.organization.description"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "email"
+                  , maxlength :=          100
+                  , name :=               "email"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.organization.email"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "organizationId"
+                  , maxlength :=          0
+                  , name :=               "organizationid"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.organization.organizationid"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "organizationtype"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "organizationType"
+                  , maxlength :=          -1
+                  , name :=               "organizationtype"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.organization.organizationtype"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "phone"
+                  , maxlength :=          50
+                  , name :=               "phone"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.organization.phone"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "shortCode"
+                  , maxlength :=          0
+                  , name :=               "shortcode"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.organization.shortcode"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "webLink"
+                  , maxlength :=          1000
+                  , name :=               "weblink"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.organization.weblink"
+                  , type :=               "url"
+                  ]
+                ]
+          , structure :=
+                [ brin :=             ""
+                , email :=            ""
+                , organizationid :=   ""
+                , organizationtype := ""
+                , phone :=            ""
+                , shortcode :=        ""
+                , brinname :=         DEFAULT RECORD
+                , description :=      DEFAULT RECORD
+                , weblink :=          DEFAULT RECORD
+                ]
+          ]
+    , product :=
+          [ backuptitlefield :=     "crohoname"
+          , duplicateerasefields := STRING[]
+          , getfields :=            [ "croho", "crohoname", "location", "productlevel", "producttype" ]
+          , icon :=                 "hovi_client:hovimanager"
+          , isvirtual :=            FALSE
+          , multipletid :=          /*tid*/"hovi_client:itemtypes.hovitypes.products"
+          , referencingtypes :=     [ "product", "event" ]
+          , rowkeyfield :=          "productid"
+          , textarrayfields :=      [ "summitcodes" ]
+          , tid :=                  /*tid*/"hovi_client:itemtypes.hovitypes.product"
+          , titlefield :=           "productname"
+          , fieldarrays :=
+                [ [ name :=         "productforms"
+                  , rowkeyfield :=  "PRODUCTFORM"
+                  , title :=        "productForms"
+                  ]
+                ]
+          , fields :=
+                [ [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "accreditations"
+                  , maxlength :=          -1
+                  , name :=               "accreditations"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.accreditations"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       "accrorganization"
+                          , istranslated := FALSE
+                          , jsonname :=     "accrOrganization"
+                          , name :=         "accrorganization"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.accreditations.accrorganization"
+                          , type :=         "domain"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "admissionSelections"
+                  , maxlength :=          -1
+                  , name :=               "admissionselections"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.admissionselections"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "preEducation"
+                          , name :=         "preeducation"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.admissionselections.preeducation"
+                          , type :=         "boolean"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "capacities"
+                          , name :=         "capacities"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.admissionselections.capacities"
+                          , type :=         "boolean"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "grades"
+                          , name :=         "grades"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.admissionselections.grades"
+                          , type :=         "boolean"
+                          ]
+                        , [ domain :=       "testmethod"
+                          , istranslated := FALSE
+                          , jsonname :=     "testMethod"
+                          , name :=         "testmethod"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.admissionselections.testmethod"
+                          , type :=         "domain"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "validFor"
+                          , name :=         "validfor"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.admissionselections.validfor"
+                          , type :=         "enumarray"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "admissionTests"
+                  , maxlength :=          -1
+                  , name :=               "admissiontests"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.admissiontests"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       "testmethod"
+                          , istranslated := FALSE
+                          , jsonname :=     "testMethod"
+                          , name :=         "testmethod"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.admissiontests.testmethod"
+                          , type :=         "domain"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "description"
+                          , name :=         "description"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.admissiontests.description"
+                          , type :=         "text"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "contact"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "contacts"
+                  , maxlength :=          -1
+                  , name :=               "contacts"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.contacts"
+                  , type :=               "domainarray"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "cooperations"
+                  , maxlength :=          -1
+                  , name :=               "cooperations"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.cooperations"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "cooperationType"
+                          , name :=         "cooperationtype"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.cooperations.cooperationtype"
+                          , type :=         "enum"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "cooperativePartners"
+                          , name :=         "cooperativepartners"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.cooperations.cooperativepartners"
+                          , type :=         "array"
+                          , subfields :=
+                                [ [ domain :=       ""
+                                  , istranslated := FALSE
+                                  , jsonname :=     "partnerOrganization"
+                                  , name :=         "partnerorganization"
+                                  , tid :=          /*tid*/"hovi_client:itemtypes.product.cooperations.cooperativepartners.partnerorganization"
+                                  , type :=         "text"
+                                  ]
+                                , [ domain :=       ""
+                                  , istranslated := FALSE
+                                  , jsonname :=     "partnerCountry"
+                                  , name :=         "partnercountry"
+                                  , tid :=          /*tid*/"hovi_client:itemtypes.product.cooperations.cooperativepartners.partnercountry"
+                                  , type :=         "text"
+                                  ]
+                                , [ domain :=       ""
+                                  , istranslated := TRUE
+                                  , jsonname :=     "partnerName"
+                                  , name :=         "partnername"
+                                  , tid :=          /*tid*/"hovi_client:itemtypes.product.cooperations.cooperativepartners.partnername"
+                                  , type :=         "text"
+                                  ]
+                                , [ domain :=       ""
+                                  , istranslated := FALSE
+                                  , jsonname :=     "isSecretary"
+                                  , name :=         "issecretary"
+                                  , tid :=          /*tid*/"hovi_client:itemtypes.product.cooperations.cooperativepartners.issecretary"
+                                  , type :=         "boolean"
+                                  ]
+                                ]
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "description"
+                          , name :=         "description"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.cooperations.description"
+                          , type :=         "text"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "credits"
+                  , maxlength :=          -1
+                  , name :=               "credits"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.credits"
+                  , type :=               "money"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "crohostudy"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "croho"
+                  , maxlength :=          -1
+                  , name :=               "croho"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.croho"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "crohoName"
+                  , maxlength :=          0
+                  , name :=               "crohoname"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.crohoname"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "crohosector"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "crohoSector"
+                  , maxlength :=          -1
+                  , name :=               "crohosector"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.crohosector"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "degree"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "degrees"
+                  , maxlength :=          -1
+                  , name :=               "degrees"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.degrees"
+                  , type :=               "domainarray"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "exchangePrograms"
+                  , maxlength :=          -1
+                  , name :=               "exchangeprograms"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.exchangeprograms"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "orgUnitCountry"
+                          , name :=         "orgUnitCountry"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.exchangeprograms.orgunitcountry"
+                          , type :=         "text"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "orgUnitName"
+                          , name :=         "orgunitname"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.exchangeprograms.orgunitname"
+                          , type :=         "text"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "programName"
+                          , name :=         "programname"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.exchangeprograms.programname"
+                          , type :=         "text"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "programDescription"
+                          , name :=         "programdescription"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.exchangeprograms.programdescription"
+                          , type :=         "text"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "webLink"
+                          , name :=         "weblink"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.exchangeprograms.weblink"
+                          , type :=         "url"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "financing"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "financing"
+                  , maxlength :=          -1
+                  , name :=               "financing"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.financing"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "increasedTuitionFeeBKKI"
+                  , maxlength :=          -1
+                  , name :=               "increasedtuitionfeebkki"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.increasedtuitionfeebkki"
+                  , type :=               "boolean"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "instructionModeDescription"
+                  , maxlength :=          500
+                  , name :=               "instructionmodedescription"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.instructionmodedescription"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "instructionmode"
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "instructionModes"
+                  , maxlength :=          -1
+                  , name :=               "instructionmodes"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.instructionmodes"
+                  , type :=               "domainarray"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "isBKKIProduct"
+                  , maxlength :=          -1
+                  , name :=               "isbkkiproduct"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.isbkkiproduct"
+                  , type :=               "boolean"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "iscedcluster"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "iscedCluster"
+                  , maxlength :=          -1
+                  , name :=               "iscedcluster"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.iscedcluster"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "jobPerspective"
+                  , maxlength :=          1400
+                  , name :=               "jobperspective"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.jobperspective"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "languageRequirements"
+                  , maxlength :=          -1
+                  , name :=               "languagerequirements"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.languagerequirements"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       "languageexam"
+                          , istranslated := FALSE
+                          , jsonname :=     "languageExam"
+                          , name :=         "languageexam"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.languagerequirements.languageexam"
+                          , type :=         "domain"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "minimumScore"
+                          , name :=         "minimumscore"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.languagerequirements.minimumscore"
+                          , type :=         "text"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "description"
+                          , name :=         "description"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.languagerequirements.description"
+                          , type :=         "text"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "location"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "location"
+                  , maxlength :=          -1
+                  , name :=               "location"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.location"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "numerusFixus"
+                  , maxlength :=          -1
+                  , name :=               "numerusfixus"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.numerusfixus"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "capacity"
+                          , name :=         "capacity"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.numerusfixus.capacity"
+                          , type :=         "integer"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "numberOfTries"
+                          , name :=         "numberoftries"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.numerusfixus.numberoftries"
+                          , type :=         "integer"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "numerusUrl"
+                          , name :=         "numerusurl"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.numerusfixus.numerusurl"
+                          , type :=         "url"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "opleidingSK123Id"
+                  , maxlength :=          10
+                  , name :=               "opleidingsk123id"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.opleidingsk123id"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "organization"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "organization"
+                  , maxlength :=          -1
+                  , name :=               "organization"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.organization"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "otherRequirements"
+                  , maxlength :=          -1
+                  , name :=               "otherrequirements"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.otherrequirements"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       "otherrequirements"
+                          , istranslated := FALSE
+                          , jsonname :=     "requirement"
+                          , name :=         "requirement"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.otherrequirements.requirement"
+                          , type :=         "domain"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "description"
+                          , name :=         "description"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.otherrequirements.description"
+                          , type :=         "text"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "percentageDistanceLearning"
+                  , maxlength :=          -1
+                  , name :=               "percentagedistancelearning"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.percentagedistancelearning"
+                  , type :=               "percentage"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "percentageForeignStudents"
+                  , maxlength :=          -1
+                  , name :=               "percentageforeignstudents"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.percentageforeignstudents"
+                  , type :=               "percentage"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "percentageNightEducation"
+                  , maxlength :=          -1
+                  , name :=               "percentagenighteducation"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.percentagenighteducation"
+                  , type :=               "percentage"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "potentialJobs"
+                  , maxlength :=          -1
+                  , name :=               "potentialjobs"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.potentialjobs"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "jobName"
+                          , name :=         "jobname"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.potentialjobs.jobname"
+                          , type :=         "text"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "description"
+                          , name :=         "description"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.potentialjobs.description"
+                          , type :=         "text"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "productDescription"
+                  , maxlength :=          1400
+                  , name :=               "productdescription"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.productdescription"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "productform"
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         TRUE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "productForm"
+                  , maxlength :=          -1
+                  , name :=               "productform"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.productform"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         TRUE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "productForms"
+                  , maxlength :=          -1
+                  , name :=               "productforms"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.productforms"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       "productform"
+                          , istranslated := FALSE
+                          , jsonname :=     "productForm"
+                          , name :=         "productform"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.productforms.productform"
+                          , type :=         "domain"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "productId"
+                  , maxlength :=          10
+                  , name :=               "productid"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.productid"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "productLanguages"
+                  , maxlength :=          -1
+                  , name :=               "productlanguages"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.productlanguages"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "productLanguage"
+                          , name :=         "productlanguage"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.productlanguages.productlanguage"
+                          , type :=         "text"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "percProductLanguage"
+                          , name :=         "percproductlanguage"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.productlanguages.percproductlanguage"
+                          , type :=         "percentage"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "productlevel"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "productLevel"
+                  , maxlength :=          -1
+                  , name :=               "productlevel"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.productlevel"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "productName"
+                  , maxlength :=          100
+                  , name :=               "productname"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.productname"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "productResult"
+                  , maxlength :=          1400
+                  , name :=               "productresult"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.productresult"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "productStarts"
+                  , maxlength :=          -1
+                  , name :=               "productstarts"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.productstarts"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "applicationDeadline"
+                          , name :=         "applicationdeadline"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.productstarts.applicationdeadline"
+                          , type :=         "date"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "applicationDeadlineNonEU"
+                          , name :=         "applicationdeadlinenoneu"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.productstarts.applicationdeadlinenoneu"
+                          , type :=         "date"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "applicationDeadlineNL"
+                          , name :=         "applicationdeadlinenl"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.productstarts.applicationdeadlinenl"
+                          , type :=         "date"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "startingDate"
+                          , name :=         "startingdate"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.productstarts.startingdate"
+                          , type :=         "date"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "endDate"
+                          , name :=         "enddate"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.productstarts.enddate"
+                          , type :=         "date"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "producttype"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         TRUE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "productType"
+                  , maxlength :=          -1
+                  , name :=               "producttype"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.producttype"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "productURL"
+                  , maxlength :=          1000
+                  , name :=               "producturl"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.producturl"
+                  , type :=               "url"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "programLevel"
+                  , maxlength :=          -1
+                  , name :=               "programlevel"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.programlevel"
+                  , type :=               "enum"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "scholarships"
+                  , maxlength :=          -1
+                  , name :=               "scholarships"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.scholarships"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       "scholarship"
+                          , istranslated := FALSE
+                          , jsonname :=     "scholarship"
+                          , name :=         "scholarship"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.scholarships.scholarship"
+                          , type :=         "domain"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "location"
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "sideLocations"
+                  , maxlength :=          -1
+                  , name :=               "sidelocations"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.sidelocations"
+                  , type :=               "domainarray"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "soi2006classification"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "soi2006Classification"
+                  , maxlength :=          -1
+                  , name :=               "soi2006classification"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.soi2006classification"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "studyAbroads"
+                  , maxlength :=          -1
+                  , name :=               "studyabroads"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.studyabroads"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "percentageStudyAbroad"
+                          , name :=         "percentagestudyabroad"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studyabroads.percentagestudyabroad"
+                          , type :=         "percentage"
+                          ]
+                        , [ domain :=       "placeinproduct"
+                          , istranslated := FALSE
+                          , jsonname :=     "placeInProduct"
+                          , name :=         "placeinproduct"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studyabroads.placeinproduct"
+                          , type :=         "domain"
+                          ]
+                        , [ domain :=       "obligation"
+                          , istranslated := FALSE
+                          , jsonname :=     "obligatedStudyAbroad"
+                          , name :=         "obligatedstudyabroad"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studyabroads.obligatedstudyabroad"
+                          , type :=         "domain"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "explanationAbroad"
+                          , name :=         "explanationabroad"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studyabroads.explanationabroad"
+                          , type :=         "text"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "studyAdvices"
+                  , maxlength :=          -1
+                  , name :=               "studyadvices"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.studyadvices"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "binding"
+                          , name :=         "binding"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studyadvices.binding"
+                          , type :=         "boolean"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "period"
+                          , name :=         "period"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studyadvices.period"
+                          , type :=         "integer"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "minimumECTS"
+                          , name :=         "minimumects"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studyadvices.minimumects"
+                          , type :=         "integer"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "studyChoiceChecks"
+                  , maxlength :=          -1
+                  , name :=               "studychoicechecks"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.studychoicechecks"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "checkName"
+                          , name :=         "checkname"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studychoicechecks.checkname"
+                          , type :=         "text"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "description"
+                          , name :=         "description"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studychoicechecks.description"
+                          , type :=         "text"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "webLink"
+                          , name :=         "weblink"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studychoicechecks.weblink"
+                          , type :=         "url"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "studyCosts"
+                  , maxlength :=          -1
+                  , name :=               "studycosts"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.studycosts"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "amount"
+                          , name :=         "amount"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studycosts.amount"
+                          , type :=         "money"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "description"
+                          , name :=         "description"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studycosts.description"
+                          , type :=         "text"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "studyGuideURL"
+                  , maxlength :=          1000
+                  , name :=               "studyguideurl"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.studyguideurl"
+                  , type :=               "url"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "studyRoutes"
+                  , maxlength :=          -1
+                  , name :=               "studyroutes"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.studyroutes"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       "crohostudy"
+                          , istranslated := FALSE
+                          , jsonname :=     "croho"
+                          , name :=         "croho"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studyroutes.croho"
+                          , type :=         "domain"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "brin"
+                          , name :=         "brin"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studyroutes.brin"
+                          , type :=         "text"
+                          ]
+                        , [ domain :=       "studyroutetype"
+                          , istranslated := FALSE
+                          , jsonname :=     "studyRouteType"
+                          , name :=         "studyroutetype"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studyroutes.studyroutetype"
+                          , type :=         "domain"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "description"
+                          , name :=         "description"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studyroutes.description"
+                          , type :=         "text"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "suborganization"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "subOrganizations"
+                  , maxlength :=          -1
+                  , name :=               "suborganizations"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.suborganizations"
+                  , type :=               "domainarray"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "summitCodes"
+                  , maxlength :=          -1
+                  , name :=               "summitcodes"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.summitcodes"
+                  , type :=               "textarray"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "tracks"
+                  , maxlength :=          -1
+                  , name :=               "tracks"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.tracks"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       "product"
+                          , istranslated := FALSE
+                          , jsonname :=     "track"
+                          , name :=         "track"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.tracks.track"
+                          , type :=         "domain"
+                          ]
+                        , [ domain :=       "productform"
+                          , istranslated := FALSE
+                          , jsonname :=     "productForm"
+                          , name :=         "productform"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.tracks.productform"
+                          , type :=         "domain"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             "tuitionfeeincludes"
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "tuitionFeeIncludes"
+                  , maxlength :=          -1
+                  , name :=               "tuitionfeeincludes"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.tuitionfeeincludes"
+                  , type :=               "domainarray"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "tuitionFees"
+                  , maxlength :=          -1
+                  , name :=               "tuitionfees"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.tuitionfees"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "amount"
+                          , name :=         "amount"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.tuitionfees.amount"
+                          , type :=         "money"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "year"
+                          , name :=         "year"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.tuitionfees.year"
+                          , type :=         "integer"
+                          ]
+                        , [ domain :=       "tuitionfeetype"
+                          , istranslated := FALSE
+                          , jsonname :=     "tuitionFeeType"
+                          , name :=         "tuitionfeetype"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.tuitionfees.tuitionfeetype"
+                          , type :=         "domain"
+                          ]
+                        , [ domain :=       "period"
+                          , istranslated := FALSE
+                          , jsonname :=     "tuitionFeePeriod"
+                          , name :=         "tuitionfeeperiod"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.tuitionfees.tuitionfeeperiod"
+                          , type :=         "domain"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := TRUE
+                          , jsonname :=     "description"
+                          , name :=         "description"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.tuitionfees.description"
+                          , type :=         "text"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "definitive"
+                          , name :=         "definitive"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.tuitionfees.definitive"
+                          , type :=         "boolean"
+                          ]
+                        ]
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "tuitionFeeUrl"
+                  , maxlength :=          1000
+                  , name :=               "tuitionfeeurl"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.tuitionfeeurl"
+                  , type :=               "url"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "userKey"
+                  , maxlength :=          500
+                  , name :=               "userkey"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.userkey"
+                  , type :=               "text"
+                  ]
+                ]
+          , structure :=
+                [ availableforms :=           STRING[]
+                , contacts :=                 STRING[]
+                , credits :=                  0m
+                , croho :=                    ""
+                , crohosector :=              ""
+                , degrees :=                  STRING[]
+                , financing :=                ""
+                , increasedtuitionfeebkki :=  FALSE
+                , isbkkiproduct :=            FALSE
+                , iscedcluster :=             ""
+                , location :=                 ""
+                , opleidingsk123id :=         ""
+                , organization :=             ""
+                , productid :=                ""
+                , productlevel :=             ""
+                , producttype :=              ""
+                , programlevel :=             ""
+                , soi2006classification :=    ""
+                , suborganizations :=         STRING[]
+                , userkey :=                  ""
+                , accreditations :=
+                      [ [ accrorganization := ""
+                        ]
+                      ]
+                , cooperations :=
+                      [ [ cooperationtype :=      ""
+                        , cooperativepartners :=
+                              [ [ issecretary :=          FALSE
+                                , partnercountry :=       ""
+                                , partnerorganization :=  ""
+                                , partnername :=          DEFAULT RECORD
+                                ]
+                              ]
+                        , description :=          DEFAULT RECORD
+                        ]
+                      ]
+                , crohoname :=                DEFAULT RECORD
+                , exchangeprograms :=
+                      [ [ orgunitcountry :=     ""
+                        , orgunitname :=        DEFAULT RECORD
+                        , programdescription := DEFAULT RECORD
+                        , programname :=        DEFAULT RECORD
+                        , weblink :=            DEFAULT RECORD
+                        ]
+                      ]
+                , otherrequirements :=
+                      [ [ requirement :=  ""
+                        , description :=  DEFAULT RECORD
+                        ]
+                      ]
+                , potentialjobs :=
+                      [ [ description :=  DEFAULT RECORD
+                        , jobname :=      DEFAULT RECORD
+                        ]
+                      ]
+                , productforms :=
+                      [ [ instructionmodes :=           STRING[]
+                        , percentagedistancelearning := -1
+                        , percentageforeignstudents :=  -1
+                        , percentagenighteducation :=   -1
+                        , productform :=                ""
+                        , sidelocations :=              STRING[]
+                        , summitcodes :=                STRING[]
+                        , tuitionfeeincludes :=         STRING[]
+                        , admissionselections :=
+                              [ [ capacities :=   FALSE
+                                , grades :=       FALSE
+                                , preeducation := FALSE
+                                , testmethod :=   ""
+                                , validfor :=     STRING[]
+                                ]
+                              ]
+                        , admissiontests :=
+                              [ [ testmethod :=   ""
+                                , description :=  DEFAULT RECORD
+                                ]
+                              ]
+                        , instructionmodedescription := DEFAULT RECORD
+                        , jobperspective :=             DEFAULT RECORD
+                        , languagerequirements :=
+                              [ [ languageexam := ""
+                                , minimumscore := ""
+                                , description :=  DEFAULT RECORD
+                                ]
+                              ]
+                        , numerusfixus :=
+                              [ [ capacity :=       0
+                                , numberoftries :=  0
+                                , numerusurl :=     DEFAULT RECORD
+                                ]
+                              ]
+                        , productdescription :=         DEFAULT RECORD
+                        , productlanguages :=
+                              [ [ percproductlanguage :=  -1
+                                , productlanguage :=      ""
+                                ]
+                              ]
+                        , productresult :=              DEFAULT RECORD
+                        , productstarts :=
+                              [ [ applicationdeadline :=      DEFAULT DATETIME
+                                , applicationdeadlinenl :=    DEFAULT DATETIME
+                                , applicationdeadlinenoneu := DEFAULT DATETIME
+                                , enddate :=                  DEFAULT DATETIME
+                                , startingdate :=             DEFAULT DATETIME
+                                ]
+                              ]
+                        , producturl :=                 DEFAULT RECORD
+                        , scholarships :=
+                              [ [ scholarship :=  ""
+                                ]
+                              ]
+                        , studyabroads :=
+                              [ [ obligatedstudyabroad :=   ""
+                                , percentagestudyabroad :=  -1
+                                , placeinproduct :=         ""
+                                , explanationabroad :=      DEFAULT RECORD
+                                ]
+                              ]
+                        , studyadvices :=
+                              [ [ binding :=      FALSE
+                                , minimumects :=  0
+                                , period :=       0
+                                ]
+                              ]
+                        , studycosts :=
+                              [ [ amount :=       0m
+                                , description :=  DEFAULT RECORD
+                                ]
+                              ]
+                        , studyguideurl :=              DEFAULT RECORD
+                        , tracks :=
+                              [ [ productform :=  ""
+                                , track :=        ""
+                                ]
+                              ]
+                        , tuitionfees :=
+                              [ [ amount :=           0m
+                                , definitive :=       FALSE
+                                , tuitionfeeperiod := ""
+                                , tuitionfeetype :=   ""
+                                , year :=             0
+                                , description :=      DEFAULT RECORD
+                                ]
+                              ]
+                        ]
+                      ]
+                , productname :=              DEFAULT RECORD
+                , studychoicechecks :=
+                      [ [ checkname :=    DEFAULT RECORD
+                        , description :=  DEFAULT RECORD
+                        , weblink :=      DEFAULT RECORD
+                        ]
+                      ]
+                , studyroutes :=
+                      [ [ brin :=           ""
+                        , croho :=          ""
+                        , studyroutetype := ""
+                        , description :=    DEFAULT RECORD
+                        ]
+                      ]
+                , tuitionfeeurl :=            DEFAULT RECORD
+                ]
+          ]
+    , suborganization :=
+          [ backuptitlefield :=     ""
+          , duplicateerasefields := STRING[]
+          , getfields :=            STRING[]
+          , icon :=                 "hovi_client:suborganizations"
+          , isvirtual :=            FALSE
+          , multipletid :=          /*tid*/"hovi_client:itemtypes.hovitypes.suborganizations"
+          , referencingtypes :=     [ "product" ]
+          , rowkeyfield :=          "suborganizationid"
+          , textarrayfields :=      STRING[]
+          , tid :=                  /*tid*/"hovi_client:itemtypes.hovitypes.suborganization"
+          , titlefield :=           "suborganizationname"
+          , fieldarrays :=          RECORD[]
+          , fields :=
+                [ [ containstranslated := FALSE
+                  , domain :=             "organization"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "organization"
+                  , maxlength :=          -1
+                  , name :=               "organization"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.suborganization.organization"
+                  , type :=               "domain"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "subOrganizationId"
+                  , maxlength :=          0
+                  , name :=               "suborganizationid"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.suborganization.suborganizationid"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "subOrganizationName"
+                  , maxlength :=          150
+                  , name :=               "suborganizationname"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.suborganization.suborganizationname"
+                  , type :=               "text"
+                  ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "userKey"
+                  , maxlength :=          500
+                  , name :=               "userkey"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.suborganization.userkey"
+                  , type :=               "text"
+                  ]
+                ]
+          , structure :=
+                [ organization :=         ""
+                , suborganizationid :=    ""
+                , userkey :=              ""
+                , suborganizationname :=  DEFAULT RECORD
+                ]
+          ]
+    ];
+
+PUBLIC RECORD FUNCTION __GetHoviTypesForCheck()
+{
+ RETURN hovi_typeconfigs;
+}

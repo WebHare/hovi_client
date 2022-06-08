@@ -1,0 +1,30 @@
+<?wh
+
+LOADLIB "wh::datetime.whlib";
+LOADLIB "wh::ipc.whlib";
+LOADLIB "wh::internal/jobs.whlib";
+
+LOADLIB "mod::system/lib/testframework.whlib";
+
+
+ASYNC MACRO TestItemdata()
+{
+  OBJECT job := CreateJob("mod::hovi_client/scripts/whcommands/regeneratehovitypes.whscr").job;
+
+  job->SetConsoleArguments([ "--check" ]);
+
+  INTEGER output := job->CaptureOutput();
+  job->Start();
+
+  PRINT(ReadFrom(output, 16384));
+
+  AWAIT job->AsyncWaitRead(MAX_DATETIME);
+  PRINT(ReadFrom(output, 16384));
+  ClosePipe(output);
+  TestEq(0, job->GetConsoleExitCode(), "Regenerate the item data with: wh hovi_client:regeneratehovitypes");
+  job->Close();
+}
+
+RunTestframework([ PTR TestItemdata
+                 ], [ usedatabase := FALSE
+                    ]);

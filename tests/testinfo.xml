@@ -1,3 +1,4 @@
 <group xmlns="http://www.webhare.net/xmlns/system/testinfo">
-  <test script="test_hoviclient.whscr"/>
+  <test script="test_hoviclient.whscr" />
+  <test script="test_hovitypes.whscr" />
 </group>
