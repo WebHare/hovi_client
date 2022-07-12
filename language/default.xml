@@ -11,6 +11,10 @@
       <text tid="userkey">User key</text>
       <text tid="visitoraddress">Visitor address</text>
       <text tid="weblink">URL</text>
+      <textgroup gid="groups">   <!-- itemtypes.contact.groups -->
+        <text tid="general">General information</text>
+        <text tid="idlink">Identification and reference</text>
+      </textgroup>
     </textgroup>
     <textgroup gid="cooperation">   <!-- itemtypes.cooperation -->
       <text tid="croho">CROHO</text>
@@ -41,6 +45,10 @@
       <text tid="targetlevels">Target levels</text>
       <text tid="targetregions">Target regions</text>
       <text tid="userkey">User key</text>
+      <textgroup gid="groups">   <!-- itemtypes.event.groups -->
+        <text tid="general">General information</text>
+        <text tid="idlink">Identification and reference</text>
+      </textgroup>
       <textgroup gid="participatingproducts">   <!-- itemtypes.event.participatingproducts -->
         <text tid="croho">CROHO</text>
         <text tid="organization">Organization</text>
@@ -82,6 +90,10 @@
       <text tid="vestigingsk123id">SK123 vestiging ID</text>
       <text tid="visitoraddress">Visitor address</text>
       <text tid="weblink">URL</text>
+      <textgroup gid="groups">   <!-- itemtypes.location.groups -->
+        <text tid="general">General information</text>
+        <text tid="idlink">Identification and reference</text>
+      </textgroup>
     </textgroup>
     <textgroup gid="media">   <!-- itemtypes.media -->
       <text tid="description">Description</text>
@@ -90,6 +102,9 @@
       <text tid="mediatype">Type</text>
       <text tid="organization">Organization</text>
       <text tid="userkey">User key</text>
+      <textgroup gid="groups">   <!-- itemtypes.media.groups -->
+        <text tid="general">General information</text>
+      </textgroup>
     </textgroup>
     <textgroup gid="organization">   <!-- itemtypes.organization -->
       <text tid="brin">Brin</text>
@@ -101,6 +116,10 @@
       <text tid="phone">Phone</text>
       <text tid="shortcode">Shortcode</text>
       <text tid="weblink">Weblink</text>
+      <textgroup gid="groups">   <!-- itemtypes.organization.groups -->
+        <text tid="general">General information</text>
+        <text tid="idlink">Identification and reference</text>
+      </textgroup>
     </textgroup>
     <textgroup gid="product">   <!-- itemtypes.product -->
       <text tid="accreditations">Accreditation</text>
@@ -191,6 +210,15 @@
         <text tid="programname">Program Name</text>
         <text tid="weblink">Weblink</text>
       </textgroup>
+      <textgroup gid="groups">   <!-- itemtypes.product.groups -->
+        <text tid="admission">Admission and eligibility</text>
+        <text tid="afterstudy">After the product</text>
+        <text tid="content">Product content</text>
+        <text tid="costs">Tuition fees</text>
+        <text tid="general">General information</text>
+        <text tid="idlink">Identification and reference</text>
+        <text tid="internationalisation">Internationalisation</text>
+      </textgroup>
       <textgroup gid="languagerequirements">   <!-- itemtypes.product.languagerequirements -->
         <text tid="description">Description</text>
         <text tid="languageexam">Language exam</text>
@@ -270,6 +298,10 @@
       <text tid="suborganizationid">Suborganization ID</text>
       <text tid="suborganizationname">Name</text>
       <text tid="userkey">User key</text>
+      <textgroup gid="groups">   <!-- itemtypes.suborganization.groups -->
+        <text tid="general">General information</text>
+        <text tid="idlink">Identification and reference</text>
+      </textgroup>
     </textgroup>
   </textgroup>
   <textgroup gid="tolliumapps">   <!-- tolliumapps -->

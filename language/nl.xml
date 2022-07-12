@@ -11,6 +11,10 @@
       <text tid="userkey">Gebruikerssleutel</text>
       <text tid="visitoraddress">Bezoekadres</text>
       <text tid="weblink">URL</text>
+      <textgroup gid="groups">   <!-- itemtypes.contact.groups -->
+        <text tid="general">Algemene gegevens</text>
+        <text tid="idlink">Identificatie en koppeling</text>
+      </textgroup>
     </textgroup>
     <textgroup gid="cooperation">   <!-- itemtypes.cooperation -->
       <text tid="croho">CROHO</text>
@@ -41,6 +45,10 @@
       <text tid="targetlevels">Doelniveau's</text>
       <text tid="targetregions">Doelregio's</text>
       <text tid="userkey">Gebruikerssleutels</text>
+      <textgroup gid="groups">   <!-- itemtypes.event.groups -->
+        <text tid="general">Algemene gegevens</text>
+        <text tid="idlink">Identificatie en koppeling</text>
+      </textgroup>
       <textgroup gid="participatingproducts">   <!-- itemtypes.event.participatingproducts -->
         <text tid="croho">CROHO</text>
         <text tid="organization">Organisatie</text>
@@ -82,6 +90,10 @@
       <text tid="vestigingsk123id">SK123 vestiging ID</text>
       <text tid="visitoraddress">Bezoekadres</text>
       <text tid="weblink">URL</text>
+      <textgroup gid="groups">   <!-- itemtypes.location.groups -->
+        <text tid="general">Algemene gegevens</text>
+        <text tid="idlink">Identificatie en koppeling</text>
+      </textgroup>
     </textgroup>
     <textgroup gid="media">   <!-- itemtypes.media -->
       <text tid="description">Omschrijving</text>
@@ -90,6 +102,9 @@
       <text tid="mediatype">Type</text>
       <text tid="organization">Organisatie</text>
       <text tid="userkey">Gebruikerssleutel</text>
+      <textgroup gid="groups">   <!-- itemtypes.media.groups -->
+        <text tid="general">Algemene gegevens</text>
+      </textgroup>
     </textgroup>
     <textgroup gid="organization">   <!-- itemtypes.organization -->
       <text tid="brin">Brin</text>
@@ -101,6 +116,10 @@
       <text tid="phone">Telefoon</text>
       <text tid="shortcode">Shortcode</text>
       <text tid="weblink">Weblink</text>
+      <textgroup gid="groups">   <!-- itemtypes.organization.groups -->
+        <text tid="general">Algemene gegevens</text>
+        <text tid="idlink">Identificatie en koppeling</text>
+      </textgroup>
     </textgroup>
     <textgroup gid="product">   <!-- itemtypes.product -->
       <text tid="accreditations">Accreditatie</text>
@@ -191,6 +210,15 @@
         <text tid="programname">Programmanaam</text>
         <text tid="weblink">Weblink</text>
       </textgroup>
+      <textgroup gid="groups">   <!-- itemtypes.product.groups -->
+        <text tid="admission">Aanmelding en toelating</text>
+        <text tid="afterstudy">Na de opleiding</text>
+        <text tid="content">Inhoudelijke kenmerken</text>
+        <text tid="costs">Kosten</text>
+        <text tid="general">Algemene gegevens</text>
+        <text tid="idlink">Identificatie en koppeling</text>
+        <text tid="internationalisation">Internationalisering</text>
+      </textgroup>
       <textgroup gid="languagerequirements">   <!-- itemtypes.product.languagerequirements -->
         <text tid="description">Beschrijving</text>
         <text tid="languageexam">Taalexamen</text>
@@ -270,6 +298,10 @@
       <text tid="suborganizationid">Suborganisatie ID</text>
       <text tid="suborganizationname">Naam</text>
       <text tid="userkey">Gebruikerssleutel</text>
+      <textgroup gid="groups">   <!-- itemtypes.suborganization.groups -->
+        <text tid="general">Algemene gegevens</text>
+        <text tid="idlink">Identificatie en koppeling</text>
+      </textgroup>
     </textgroup>
   </textgroup>
   <textgroup gid="tolliumapps">   <!-- tolliumapps -->

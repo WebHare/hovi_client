@@ -1,0 +1,146 @@
+<?wh
+
+LOADLIB "mod::tollium/lib/gettid.whlib";
+
+
+RECORD fieldgroups :=
+  [ product :=
+      [ [ name :=       "propertiesfake"
+        , title :=      /*tid*/'hovi_client:itemtypes.product.groups.idlink'
+        , icon :=       "tollium:objects/tag"
+        , fields :=     [ "productconfig", "productname", "productlevel", "programlevel", "crohosector", "soi2006classification", "iscedcluster", "financing"
+                        , "isbkkiproduct", "location", "sidelocations", "suborganizations"
+                        , "summitcodes", "userkey", "references"
+                        ]
+        , field :=      ""
+        , combinedfields := [ productconfig :=  [ "producttype", "croho", "productform" ]
+                            , isbkkiproduct :=  [ "increasedtuitionfeebkki" ]
+                            ]
+        ]
+      , [ name :=       "general"
+        , title :=      /*tid*/'hovi_client:itemtypes.product.groups.general'
+        , icon :=       "tollium:actions/properties"
+        , fields :=     [ "productdescription", "producturl", "accreditations", "instructionmodes", "instructionmodedescription", "degrees", "contacts", "cooperations", "credits" ]
+        , field :=      ""
+        ]
+      , [ name :=       "content"
+        , title :=      /*tid*/'hovi_client:itemtypes.product.groups.content'
+        , icon :=       "tollium:actions/properties"
+        , fields :=     [ "productlanguages", "studyadvices", "studyabroads", "percentagenighteducation", "percentagedistancelearning", "tracks", "studyguideurl" ]
+        , field :=      ""
+        ]
+      , [ name :=       "costs"
+        , title :=      /*tid*/'hovi_client:itemtypes.product.groups.costs'
+        , icon  :=      "tollium:business/coins"
+        , fields :=     [ "tuitionfees", "tuitionfeeincludes", "studycosts", "tuitionfeeurl" ]
+        , field :=      ""
+        ]
+      , [ name :=       "admission"
+        , title :=      /*tid*/'hovi_client:itemtypes.product.groups.admission'
+        , icon :=       "system:sysmgmt/access"
+        , fields :=     [ "productstarts", "admissionselections", "admissiontests", "numerusfixus", "languagerequirements", "studyroutes", "otherrequirements", "studychoicechecks" ]
+        , field :=      ""
+        ]
+      , [ name :=       "afterstudy"
+        , title :=      /*tid*/'hovi_client:itemtypes.product.groups.afterstudy'
+        , icon :=       "tollium:business/briefcase"
+        , fields :=     [ "productresult", "jobperspective", "potentialjobs" ]
+        , field :=      ""
+        ]
+      , [ name :=       "internationalisation"
+        , title :=      /*tid*/'hovi_client:itemtypes.product.groups.internationalisation'
+        , icon :=       "tollium:objects/world"
+        , fields :=     [ "exchangeprograms", "percentageforeignstudents", "scholarships" ]
+        , field :=      ""
+        ]
+      ]
+  , media :=
+        [ [ name :=       "general"
+          , title :=      /*tid*/'hovi_client:itemtypes.media.groups.general'
+          , icon :=       "tollium:actions/properties"
+          , fields :=     [ "description", "mediatype", "medialink", "userkey" ]
+          , field :=      ""
+          ]
+        ]
+  , event :=
+        [ [ name :=       "propertiesfake"
+          , title :=      /*tid*/'hovi_client:itemtypes.event.groups.idlink'
+          , icon :=       "tollium:objects/tag"
+          , fields :=     [ "eventconfig", "userkey" ]
+          , field :=      ""
+          ]
+        , [ name :=       "general"
+          , title :=      /*tid*/'hovi_client:itemtypes.event.groups.general'
+          , icon :=       "tollium:actions/properties"
+          , fields :=     [ "eventname", "eventplanning", "eventstartdate", "eventenddate", "locationtype", "onlineeventurl"
+                          , "locations", "description", "informationregistrationurl",/* "eventlevels", "targetlevels",*/ "participatingproducts", "targetregions"
+                          ]
+          , field :=      ""
+          ]
+        ]
+  , suborganization :=
+        [ [ name :=       "propertiesfake"
+          , title :=      /*tid*/'hovi_client:itemtypes.suborganization.groups.idlink'
+          , icon :=       "tollium:objects/tag"
+          , fields :=     [ "suborganizationconfig", "userkey", "references" ]
+          , field :=      ""
+          ]
+        , [ name :=       "general"
+          , title :=      /*tid*/'hovi_client:itemtypes.suborganization.groups.general'
+          , icon :=       "tollium:actions/properties"
+          , fields :=     [ "suborganizationname" ]
+          , field :=      ""
+          ]
+        ]
+  , location :=
+        [ [ name :=       "propertiesfake"
+          , title :=      /*tid*/'hovi_client:itemtypes.location.groups.idlink'
+          , icon :=       "tollium:objects/tag"
+          , fields :=     [ "locationconfig", "userkey", "references" ]
+          , field :=      ""
+          ]
+        , [ name :=       "general"
+          , title :=      /*tid*/'hovi_client:itemtypes.location.groups.general'
+          , icon :=       "tollium:actions/properties"
+          , fields :=     [ "locationname", "description", "locationphone", "locationemail", "weblink", "visitoraddress", "contacts" ]
+          , field :=      ""
+          ]
+        ]
+  , contact :=
+        [ [ name :=       "propertiesfake"
+          , title :=      /*tid*/'hovi_client:itemtypes.contact.groups.idlink'
+          , icon :=       "tollium:objects/tag"
+          , fields :=     [ "contactconfig", "userkey", "references" ]
+          , field :=      ""
+          ]
+        , [ name :=       "general"
+          , title :=      /*tid*/'hovi_client:itemtypes.contact.groups.general'
+          , icon :=       "tollium:actions/properties"
+          , fields :=     [ "rolename", "email", "weblink", "visitoraddress", "postaladdress", "contactsubjects" ]
+          , field :=      ""
+          ]
+        ]
+  , organization :=
+        [ [ name :=       "propertiesfake"
+          , title :=      /*tid*/'hovi_client:itemtypes.organization.groups.idlink'
+          , icon :=       "tollium:objects/tag"
+          , fields :=     [ "organizationconfig" ]
+          , field :=      ""
+          ]
+        , [ name :=       "general"
+          , title :=      /*tid*/'hovi_client:itemtypes.organization.groups.general'
+          , icon :=       "tollium:actions/properties"
+          , fields :=     [ "description", "phone", "email", "weblink"
+                          ]
+          , field :=      ""
+          ]
+        ]
+  ];
+
+
+PUBLIC RECORD ARRAY FUNCTION GetHOVIFieldGrouping(STRING itemtype)
+{
+  RECORD ARRAY base := GetCell(fieldgroups, itemtype);
+  UPDATE base SET title := GetTid(title);
+  RETURN base;
+}
