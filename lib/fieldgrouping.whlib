@@ -68,6 +68,7 @@ RECORD fieldgroups :=
           , icon :=       "tollium:objects/tag"
           , fields :=     [ "eventconfig", "userkey" ]
           , field :=      ""
+          , consumerfields := ["eventtype"]
           ]
         , [ name :=       "general"
           , title :=      /*tid*/'hovi_client:itemtypes.event.groups.general'
@@ -98,6 +99,7 @@ RECORD fieldgroups :=
           , icon :=       "tollium:objects/tag"
           , fields :=     [ "locationconfig", "userkey", "references" ]
           , field :=      ""
+          , consumerfields := ["locationtype"]
           ]
         , [ name :=       "general"
           , title :=      /*tid*/'hovi_client:itemtypes.location.groups.general'
@@ -126,6 +128,7 @@ RECORD fieldgroups :=
           , icon :=       "tollium:objects/tag"
           , fields :=     [ "organizationconfig" ]
           , field :=      ""
+          , consumerfields := ["shortcode"]
           ]
         , [ name :=       "general"
           , title :=      /*tid*/'hovi_client:itemtypes.organization.groups.general'
