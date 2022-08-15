@@ -16,6 +16,7 @@ RECORD fieldgroups :=
         , combinedfields := [ productconfig :=  [ "producttype", "croho", "productform" ]
                             , isbkkiproduct :=  [ "increasedtuitionfeebkki" ]
                             ]
+        , consumerfields := ["producttype"]
         ]
       , [ name :=       "general"
         , title :=      /*tid*/'hovi_client:itemtypes.product.groups.general'
