@@ -999,7 +999,7 @@ PUBLIC CONSTANT RECORD hovi_typeconfigs :=
           ]
     , product :=
           [ backuptitlefield :=     "crohoname"
-          , duplicateerasefields := STRING[]
+          , duplicateerasefields := [ "croho" ]
           , getfields :=            [ "croho", "crohoname", "location", "productlevel", "producttype" ]
           , icon :=                 "hovi_client:hovimanager"
           , isvirtual :=            FALSE
