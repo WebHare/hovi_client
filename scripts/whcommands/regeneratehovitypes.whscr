@@ -70,6 +70,7 @@ RECORD icons :=
 
 RECORD duplicateitemerasefields :=
     [ event :=            [ "eventstartdate", "eventenddate" ]
+    , product :=          [ "croho" ]
     ];
 
 RECORD ARRAY FUNCTION GetRecursiveFields(RECORD ARRAY fields)
