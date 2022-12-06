@@ -279,7 +279,7 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
 
       THROW NEW Exception(`Failed to navigate to ${finalurl}: ${this->browser->GetHTTPStatusText()}`);
     }
-    ELSE IF(this->browser->GetHTTPStatusCode() >= 300)
+    ELSE IF(this->browser->GetHTTPStatusCode() != 200)
     {
       THROW NEW Exception(`Failed to navigate to ${finalurl}: ${this->browser->GetHTTPStatusText()}`);
     }
