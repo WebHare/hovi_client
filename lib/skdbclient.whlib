@@ -1,0 +1,120 @@
+<?wh
+
+LOADLIB "wh::adhoccache.whlib";
+LOADLIB "wh::datetime.whlib";
+LOADLIB "wh::files.whlib";
+LOADLIB "wh::ipc.whlib";
+LOADLIB "wh::money.whlib";
+LOADLIB "wh::internet/urls.whlib";
+LOADLIB "wh::internet/webbrowser.whlib";
+LOADLIB "wh::util/algorithms.whlib";
+
+LOADLIB "mod::system/lib/configure.whlib";
+LOADLIB "mod::system/lib/database.whlib";
+LOADLIB "mod::system/lib/resources.whlib";
+LOADLIB "mod::system/lib/whfs.whlib";
+
+OBJECT skdbbrowser;
+
+PUBLIC RECORD FUNCTION EliminateNulls(RECORD indata)
+{
+  RECORD ARRAY fields := UnpackRecord(indata);
+  UPDATE fields SET value := EliminateNulls(value) WHERE TYPEID(value) = TYPEID(RECORD);
+  DELETE FROM fields WHERE TypeID(value) = TypeID(RECORD) AND IsDefaultvalue(value);
+  IF(Length(fields) = 0)
+    RETURN DEFAULT RECORD;
+
+  RETURN RepackRecord(fields);
+}
+
+PUBLIC RECORD ARRAY FUNCTION GetStoredSKDBFeed(STRING name)
+{
+  RETURN DecodeHSONBLob(GetWebHareResource(`storage::hovi_client/skdb.data/${ToLowercase(name)}.hson`)).value;
+}
+
+
+PUBLIC STRING FUNCTION GetSKDBAPIBaseURL()
+{
+  STRING apiurl := ReadRegistryKey("hovi_client.skdbclient.apiurl");
+  IF(apiurl = "")
+    THROW NEW Exception(`Please set the apiurl: wh registry set hovi_client.skdbclient.apiurl XXX - either https://api.studiekeuzedatabase.nl/DatamartService.svc/ or https://api-acceptatie.studiekeuzedatabase.nl/DatamartService.svc/`);
+
+  RETURN apiurl;
+}
+
+PUBLIC RECORD FUNCTION EnsureFreshSKDBToken()
+{
+  RECORD tokeninfo := ReadRegistryKey("hovi_client.skdbclient.token");
+  IF(RecordExists(tokeninfo) AND tokeninfo.lastrefresh > AddTimeTodate(-30*60*1000, GetCurrentDatetime()))
+    RETURN ReadRegistryKey("hovi_client.skdbclient.token").token;
+
+  STRING clientid := ReadRegistryKey("hovi_client.skdbclient.client_id");
+  IF(clientid = "")
+    THROW NEW Exception(`Please set the clientid: wh registry set hovi_client.skdbclient.client_id XXX`);
+
+  STRING clientsecret := ReadRegistryKey("hovi_client.skdbclient.client_secret");
+  IF(clientsecret = "")
+    THROW NEW Exception(`Please set the clientsecret: wh registry set hovi_client.skdbclient.client_secret XXX`);
+
+  STRING tokenurl := ReadRegistryKey("hovi_client.skdbclient.tokenurl");
+  IF(tokenurl = "")
+    THROW NEW Exception(`Please set the tokenurl: wh registry set hovi_client.skdbclient.tokenurl XXX - either https://token.studiekeuzedatabase.nl/token or https://token-acceptatie.studiekeuzedatabase.nl/token`);
+
+  OBJECT browser := NEW WebBrowser;
+  //browser->debug := TRUE;
+  IF(NOT browser->PostWebpage(tokenurl,
+                        RECORD[[ name := "grant_type", value := "client_credentials"]
+                              ,[ name := "client_id", value := clientid ]
+                              ,[ name := "client_secret", value := clientsecret ]
+                              ], "application/x-www-form-urlencoded"))
+  {
+    THROW NEW Exception(`Failed to retrieve token from SKDB`);
+  }
+
+  RECORD token := DecodeJSONBlob(browser->content);
+  GetPrimary()->BeginWork();
+  WriteRegistryKey("hovi_client.skdbclient.token",[ lastrefresh := GetCurrentDatetime(), token := token ]);
+  GetPrimary()->CommitWork();
+
+  RETURN token;
+}
+
+
+PUBLIC BLOB FUNCTION ExecuteSKDBGet(STRING url)
+{
+  IF(NOT ObjectExists(skdbbrowser))
+    skdbbrowser := NEW WebBrowser;
+
+  RECORD tokeninfo := EnsureFreshSKDBToken();
+  url := UpdateURLVariables(GetSKDBAPIBaseURL() || url, [ "$format" := "json" ]);
+
+  IF(NOT skdbbrowser->SendRawRequest("GET", url, RECORD[[ field := "Authorization", value := "Bearer " || tokeninfo.access_token ]], DEFAULT BLOB))
+    THROW NEW Exception("Request failure");
+  RETURN skdbbrowser->content;
+}
+
+PUBLIC OBJECT FUNCTION* DownloadSKDBFeeds(STRING ARRAY desiredfeeds)
+{
+  STRING basedir := GetModuleStorageRoot("hovi_client") || `skdb.data/`;
+  CreateDiskDirectoryRecursive(basedir,TRUE);
+
+  YIELD [ progress := 0m, status := `Downloaden feed overzicht` ];
+
+  BLOB root := ExecuteSKDBGet("");
+  StoreDiskFile(basedir || "root.hson", EncodeHSONBlob(DecodeJSONBlob(root)), [ overwrite := TRUE ]);
+  StoreDiskFile(basedir || "root.json", root, [ overwrite := TRUE ]);
+
+  //Samples can be uploaded here: https://portal.webhare.com/?app=publisher(/Websites/files.webhare.com/hovi/SKDB.data/)
+  FOREVERY(STRING feed FROM desiredfeeds)
+  {
+    YIELD [ progress := 80m*#feed / LENGTH(desiredfeeds), status := `Downloaden SKDB tabel ${feed}` ];
+    BLOB subtable := ExecuteSKDBGet(feed || "/");
+    StoreDiskFile(basedir || ToLowercase(feed) || ".json", subtable, [ overwrite := TRUE]);
+    StoreDiskFile(basedir || ToLowercase(feed) || ".hson", EncodeHSONBlob(DecodeJSONBlob(subtable)), [ overwrite := TRUE]);
+  }
+
+  skdbbrowser->Close();
+  skdbbrowser := DEFAULT OBJECT;
+
+  RETURN DEFAULT RECORD;
+}
