@@ -1,7 +1,7 @@
 <module xmlns="http://www.webhare.net/xmlns/system/moduledefinition">
 
   <meta configscreen="/tolliumapps/config.xml#config">
-    <version>3.2.0</version>
+    <version>3.3.0</version>
     <description />
     <packaging download="true" webhareversion=">= 5.1.0" />
     <validation options="nowarnings">
@@ -12,6 +12,13 @@
   <moduleregistry>
     <string name="apiurl" description="HOVI API base url" initialval="https://api.hovi.nl/api/" />
     <string name="apikey" description="HOVI API key" />
+    <node name="skdbclient">
+      <string name="client_id" />
+      <string name="client_secret" />
+      <record name="token" />
+      <string name="tokenurl" />
+      <string name="apiurl" />
+    </node>
   </moduleregistry>
 
   <publisher>

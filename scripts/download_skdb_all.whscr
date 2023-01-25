@@ -1,0 +1,26 @@
+<?wh
+// wh run mod::hovi_client/scripts/download_skdb_all.whscr
+LOADLIB "wh::files.whlib";
+
+LOADLIB "mod::hovi_client/lib/skdbclient.whlib";
+
+LOADLIB "mod::system/lib/database.whlib";
+LOADLIB "mod::system/lib/configure.whlib";
+
+STRING basedir :=GetModuleStorageRoot("hovi_client") || "skdb.all/";
+CreateDiskDirectoryRecursive(basedir,TRUE);
+
+OpenPrimary();
+
+BLOB root := ExecuteSKDBGet("");
+RECORD rootdata := DecodeJSONBlob(root);
+StoreDiskFile(basedir || "root.hson", EncodeHSONBlob(rootdata), [ overwrite := TRUE ]);
+StoreDiskFile(basedir || "root.json", root, [ overwrite := TRUE ]);
+
+FOREVERY(RECORD database FROM rootdata.value)
+{
+  BLOB subtable := ExecuteSKDBGet(database.url || "/");
+  Print(database.url||'\n');
+  StoreDiskFile(basedir || ToLowercase(database.url) || ".hson", EncodeHSONBlob(DecodeJSONBlob(subtable)), [ overwrite := TRUE ]);
+  StoreDiskFile(basedir || ToLowercase(database.url) || ".json", subtable, [ overwrite := TRUE ]);
+}
