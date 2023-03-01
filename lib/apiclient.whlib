@@ -398,6 +398,7 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
           , crohoname :=      DEFAULT RECORD
           , availableforms := STRING[]
           , productlanguages := STRING[]
+          , suborganizations := STRING[]
           ]
         ], this->Get(`/organization/${EncodeURL(orgid)}/product`).data);
   }
@@ -622,6 +623,8 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
           , location :=       ""
           , croho :=          ""
           , crohoname :=      DEFAULT RECORD
+          , productlanguages := STRING[]
+          , suborganizations := STRING[]
           ]
         ], this->Get(`/organization/${EncodeURL(orgid)}/cooperation`).data);
   }
@@ -702,4 +705,3 @@ PUBLIC MACRO __ResetHoviClient()
 {
   currenthoviclient := DEFAULT OBJECT;
 }
-
