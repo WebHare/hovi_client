@@ -253,6 +253,18 @@ PUBLIC CONSTANT RECORD hovi_typeconfigs :=
                   , type :=               "domain"
                   ]
                 , [ containstranslated := FALSE
+                  , domain :=             "suborganization"
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "subOrganizations"
+                  , maxlength :=          -1
+                  , name :=               "suborganizations"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.cooperation.suborganizations"
+                  , type :=               "domainarray"
+                  ]
+                , [ containstranslated := FALSE
                   , domain :=             ""
                   , ismulti :=            FALSE
                   , isreadonly :=         TRUE
@@ -274,6 +286,7 @@ PUBLIC CONSTANT RECORD hovi_typeconfigs :=
                 , productlanguages := STRING[]
                 , productlevel :=     ""
                 , producttype :=      ""
+                , suborganizations := STRING[]
                 , userkey :=          ""
                 , crohoname :=        DEFAULT RECORD
                 , productname :=      DEFAULT RECORD

@@ -25,6 +25,7 @@
       <text tid="productlevel">Niveau</text>
       <text tid="productname">Productnaam</text>
       <text tid="producttype">Producttype</text>
+      <text tid="suborganizations">Suborganizaties</text>
       <text tid="userkey">Gebruikerssleutel</text>
     </textgroup>
     <textgroup gid="event">   <!-- itemtypes.event -->
