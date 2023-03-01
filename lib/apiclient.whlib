@@ -396,6 +396,8 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
           , location :=       ""
           , croho :=          ""
           , crohoname :=      DEFAULT RECORD
+          , availableforms := STRING[]
+          , productlanguages := STRING[]
           ]
         ], this->Get(`/organization/${EncodeURL(orgid)}/product`).data);
   }
