@@ -10,7 +10,21 @@ OBJECT currenthoviclient;
 
 CONSTANT STRING hovieditor_use_apiversion := "3";
 
-//needed for 'quick' access to these fields in harescript without needing to a full openapi encode/decode
+CONSTANT RECORD ARRAY listproductsformat :=
+    [[ userkey :=        ""
+    , producttype :=    ""
+    , productname :=    DEFAULT RECORD
+    , productlevel :=   ""
+    , location :=       ""
+    , croho :=          ""
+    , crohoname :=      DEFAULT RECORD
+    , availableforms := STRING[]
+    , productlanguages := STRING[]
+    , suborganizations := STRING[]
+    , archived :=       DEFAULT DATETIME
+    ]];
+
+    //needed for 'quick' access to these fields in harescript without needing to a full openapi encode/decode
 PUBLIC CONSTANT RECORD __hovieditor_apitranslations := CELL
     [ "accreditations"
     , "accrOrganization"
@@ -386,21 +400,13 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
     RETURN retval;
   }
 
-  PUBLIC RECORD ARRAY FUNCTION GetProducts(STRING orgid)
+  PUBLIC RECORD ARRAY FUNCTION GetProducts(STRING orgid, STRING state DEFAULTSTO "")
   {
-    RETURN EnforceStructure(
-        [ [ userkey :=        ""
-          , producttype :=    ""
-          , productname :=    DEFAULT RECORD
-          , productlevel :=   ""
-          , location :=       ""
-          , croho :=          ""
-          , crohoname :=      DEFAULT RECORD
-          , availableforms := STRING[]
-          , productlanguages := STRING[]
-          , suborganizations := STRING[]
-          ]
-        ], this->Get(`/organization/${EncodeURL(orgid)}/product`).data);
+    STRING url := `/organization/${EncodeURL(orgid)}/product`;
+    IF(state != "")
+      url := url || '?state=' || EncodeURL(state);
+
+    RETURN EnforceStructure(listproductsformat, this->Get(url).data);
   }
 
   PUBLIC RECORD FUNCTION GetLocation(STRING orgid, STRING locationid, RECORD options DEFAULTSTO DEFAULT RECORD)
@@ -615,18 +621,7 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
 
   PUBLIC RECORD ARRAY FUNCTION GetCooperations(STRING orgid)
   {
-    RETURN EnforceStructure(
-        [ [ userkey :=        ""
-          , producttype :=    ""
-          , productname :=    DEFAULT RECORD
-          , productlevel :=   ""
-          , location :=       ""
-          , croho :=          ""
-          , crohoname :=      DEFAULT RECORD
-          , productlanguages := STRING[]
-          , suborganizations := STRING[]
-          ]
-        ], this->Get(`/organization/${EncodeURL(orgid)}/cooperation`).data);
+    RETURN EnforceStructure(listproductsformat, this->Get(`/organization/${EncodeURL(orgid)}/cooperation`).data);
   }
 
   PUBLIC RECORD ARRAY FUNCTION GetDomain(STRING domainname)

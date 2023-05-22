@@ -16,7 +16,7 @@ IF (GetDTAPStage() != "development")
   THROW NEW Exception(`Only allowed on DTAP stage "development" (current: ${EncodeJSON(GetDTAPStage())})`);
 
 /* after changing the data in the top of this file, run
-    wh hovi_client:regenerateitemdata
+    wh hovi_client:regeneratehovitypes
 */
 
 /// Field that is used for the name of an item

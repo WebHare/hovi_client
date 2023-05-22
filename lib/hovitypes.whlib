@@ -1129,6 +1129,18 @@ PUBLIC CONSTANT RECORD hovi_typeconfigs :=
                         ]
                   ]
                 , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            FALSE
+                  , isreadonly :=         TRUE
+                  , isrequired :=         FALSE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "archived"
+                  , maxlength :=          -1
+                  , name :=               "archived"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.archived"
+                  , type :=               "date"
+                  ]
+                , [ containstranslated := FALSE
                   , domain :=             "contact"
                   , ismulti :=            FALSE
                   , isreadonly :=         FALSE
@@ -2187,7 +2199,8 @@ PUBLIC CONSTANT RECORD hovi_typeconfigs :=
                   ]
                 ]
           , structure :=
-                [ availableforms :=           STRING[]
+                [ archived :=                 DEFAULT DATETIME
+                , availableforms :=           STRING[]
                 , contacts :=                 STRING[]
                 , credits :=                  0m
                 , croho :=                    ""
