@@ -403,6 +403,9 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
 
   PUBLIC RECORD ARRAY FUNCTION GetProducts(STRING orgid, STRING state DEFAULTSTO "")
   {
+    IF(orgid = "")
+      THROW NEW Exception(`orgid is required`);
+
     STRING url := `/organization/${EncodeURL(orgid)}/product`;
     IF(state != "")
       url := url || '?state=' || EncodeURL(state);
