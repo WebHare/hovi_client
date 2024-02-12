@@ -2440,3 +2440,7 @@ PUBLIC RECORD FUNCTION __GetHoviTypesForCheck()
 {
  RETURN hovi_typeconfigs;
 }
+
+PUBLIC CONSTANT RECORD hovi_limits :=
+  [ max_study_routes := 10000
+  ];
