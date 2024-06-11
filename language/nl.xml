@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<language xmlns="http://www.webhare.net/xmlns/tollium/screens" xml:lang="nl" xmlns:html="http://www.w3.org/1999/xhtml">
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.webhare.net/xmlns/tollium/screens" xmlns:html="http://www.w3.org/1999/xhtml" xml:lang="nl">
   <textgroup gid="itemtypes">   <!-- itemtypes -->
     <textgroup gid="contact">   <!-- itemtypes.contact -->
       <text tid="contactid">Contact ID</text>
@@ -124,8 +124,10 @@
     </textgroup>
     <textgroup gid="product">   <!-- itemtypes.product -->
       <text tid="accreditations">Accreditatie</text>
+      <text tid="admissiondescription">Toelatingsbeschrijving</text>
       <text tid="admissionselections">Selectie bij toelating</text>
       <text tid="admissiontests">Toelatingstest</text>
+      <text tid="admissionurl">Toelatingswebsite</text>
       <text tid="archived">Gearchiveerd</text>
       <text tid="contacts">Contacten</text>
       <text tid="cooperations">Samenwerkingen</text>

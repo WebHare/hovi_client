@@ -1051,6 +1051,18 @@ PUBLIC CONSTANT RECORD hovi_typeconfigs :=
                           ]
                         ]
                   ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "admissionDescription"
+                  , maxlength :=          500
+                  , name :=               "admissiondescription"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.admissiondescription"
+                  , type :=               "text"
+                  ]
                 , [ containstranslated := FALSE
                   , domain :=             ""
                   , ismulti :=            TRUE
@@ -1127,6 +1139,18 @@ PUBLIC CONSTANT RECORD hovi_typeconfigs :=
                           , type :=         "text"
                           ]
                         ]
+                  ]
+                , [ containstranslated := TRUE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         FALSE
+                  , istranslated :=       TRUE
+                  , jsonname :=           "admissionURL"
+                  , maxlength :=          1000
+                  , name :=               "admissionurl"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.admissionurl"
+                  , type :=               "url"
                   ]
                 , [ containstranslated := FALSE
                   , domain :=             ""
@@ -2265,6 +2289,7 @@ PUBLIC CONSTANT RECORD hovi_typeconfigs :=
                         , sidelocations :=              STRING[]
                         , summitcodes :=                STRING[]
                         , tuitionfeeincludes :=         STRING[]
+                        , admissiondescription :=       DEFAULT RECORD
                         , admissionselections :=
                               [ [ capacities :=   FALSE
                                 , grades :=       FALSE
@@ -2278,6 +2303,7 @@ PUBLIC CONSTANT RECORD hovi_typeconfigs :=
                                 , description :=  DEFAULT RECORD
                                 ]
                               ]
+                        , admissionurl :=               DEFAULT RECORD
                         , instructionmodedescription := DEFAULT RECORD
                         , jobperspective :=             DEFAULT RECORD
                         , languagerequirements :=
