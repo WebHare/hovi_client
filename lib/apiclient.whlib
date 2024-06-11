@@ -28,7 +28,9 @@ CONSTANT RECORD ARRAY listproductsformat :=
 PUBLIC CONSTANT RECORD __hovieditor_apitranslations := CELL
     [ "accreditations"
     , "accrOrganization"
+    , "admissionDescription"
     , "admissionSelections"
+    , "admissionURL"
     , "admissionTests"
     , "applicationDeadline"
     , "applicationDeadlineNonEU"
