@@ -3,7 +3,7 @@
   <meta configscreen="/tolliumapps/config.xml#config">
     <version>3.5.0</version>
     <description />
-    <packaging download="true" webhareversion=">= 5.1.0" />
+    <packaging download="true" webhareversion=">= 5.5.0" />
     <validation options="nowarnings">
       <fetchmodule module="hovi_database" repository="hovi/hovi_database" />
     </validation>
