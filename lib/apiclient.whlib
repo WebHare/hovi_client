@@ -314,6 +314,7 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
     options := ValidateOptions(
         [ ifmatch :=    ""
         , expecterrors := STRING[]
+        , expecterrorstatus := INTEGER[]
         ], options);
 
     RECORD ARRAY headers;
@@ -340,7 +341,7 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
     ELSE IF(this->browser->GetHTTPStatusCode() >= 400)
     {
       STRING errorcode := EnforceStructure([ errorcode := "" ], response).errorcode;
-      IF (errorcode IN options.expecterrors)
+      IF (errorcode IN options.expecterrors OR this->browser->GetHTTPStatusCode() IN options.expecterrorstatus)
       {
         RETURN CELL
           [ etag := ""
