@@ -1,7 +1,7 @@
 <module xmlns="http://www.webhare.net/xmlns/system/moduledefinition">
 
   <meta configscreen="/tolliumapps/config.xml#config">
-    <version>3.5.1</version>
+    <version>3.5.2</version>
     <description />
     <packaging download="true" webhareversion=">= 5.5.0" />
     <validation options="nowarnings">
