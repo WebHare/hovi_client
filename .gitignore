@@ -1,3 +1,4 @@
 
 # WebHare will manage the tsconfig.json for the project
 /tsconfig.json
+node_modules
