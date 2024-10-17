@@ -2,6 +2,7 @@
 import { WebHareBlob } from "@webhare/services";
 import writeXlsxFile, { type SheetData } from "write-excel-file";
 
+/*
 function encodeExcelCSV(unquoted: string): string {
   return '"' + String(unquoted).replace(/"/g, '""') + '"';
 }
@@ -16,7 +17,7 @@ function buildCSV(lines: string[]): string {
 
 export async function toCSV(data: WebHareBlob): Promise<string> {
   // console.error("toCSV",data);
-  const jsonRows = (JSON.parse(await data.text()) as { value: object[] }).value;
+  const jsonRows = (JSON.parse(await data.text()) as { value: Array<Record<string,unknown>> }).value;
   if (jsonRows.length === 0)
     return '';
 
@@ -30,6 +31,7 @@ export async function toCSV(data: WebHareBlob): Promise<string> {
   }
   return buildCSV(lines);
 }
+*/
 
 export async function toXLSX(sheets: Array<{
   name: string;
