@@ -51,7 +51,7 @@ export async function toXLSX(sheets: Array<{
     datasets.push(rows);
   }
 
-  const asblob: Blob = await writeXlsxFile(datasets, { sheets: sheets.map(sheet => sheet.name.substr(0, 31)) });
+  const asblob: Blob = await writeXlsxFile(datasets, { sheets: sheets.map(sheet => sheet.name.substring(0, 31)) });
   return WebHareBlob.from(Buffer.from(await asblob.arrayBuffer()));
 }
 
@@ -75,4 +75,58 @@ export async function toStructure(sheets: Array<{
     structure.sheets[sheet.name] = Object.fromEntries(headers.map(header => [header, typeof firstdata[header]]));
   }
   return WebHareBlob.from(JSON.stringify(structure, null, 2));
+}
+
+export async function toConvertSyntax(sheets: Array<{
+  name: string;
+  data: WebHareBlob;
+}>): Promise<WebHareBlob> {
+  let code = `* A syntax file for SPSS to explode a XLSX into separate SAV files
+* GET DATA: https://www.ibm.com/docs/en/spss-statistics/saas?topic=data-overview-get-command
+  `;
+
+  for (const sheet of sheets) {
+    const sheetName = sheet.name.substring(0, 31);
+    code += `
+
+GET DATA /TYPE=XLSX
+   /FILE='/Users/arnold/Desktop/skdb-test-17-okt-2024.xlsx'
+    /SHEET=name '${sheetName}'
+    /READNAMES=on.
+
+CACHE.
+EXECUTE.
+
+SAVE OUTFILE='/tmp/skdb/${sheetName}.sav'.
+`;
+  }
+  return WebHareBlob.from(code);
+}
+
+
+export async function toMergeSyntax(sheets: Array<{
+  name: string;
+  data: WebHareBlob;
+}>): Promise<WebHareBlob> {
+  let code = `* A syntax file for SPSS to combne the specified SAV files into a XLSX document
+* https://www.ibm.com/docs/en/spss-statistics/saas
+  `;
+
+  let append = false;
+  for (const sheet of sheets) {
+    const sheetName = sheet.name.substring(0, 31);
+    code += `
+GET FILE '/tmp/skdb/${sheetName}.sav'.
+CACHE.
+EXECUTE.
+SAVE TRANSLATE /OUTFILE='/tmp/test.xlsx'
+               /TYPE=XLS
+               /VERSION=12
+               /FIELDNAMES
+               ${append ? "/APPEND" : "/REPLACE"}
+               /EXCELOPTIONS SHEET='${sheetName.substring(0, 31)}'.
+`;
+    append = true;
+  }
+  return WebHareBlob.from(code);
 }

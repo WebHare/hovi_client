@@ -31,11 +31,10 @@ FOREVERY(RECORD database FROM rootdata.value)
   StoreDiskFile(basedir || ToLowercase(database.url) || ".json", subtable, [ overwrite := TRUE ]);
 
   INSERT CELL[name := database.url, data := subtable] INTO sheets AT END;
-
-  // IF(#database>2)
-    // BREAK;
   // StoreDiskFile(basedir || ToLowercase(database.url) || ".csv", StringToBlob(CallJS("mod::hovi_client/js/json2csv.ts#toCSV", subtable)), [ overwrite := TRUE ]);
 }
 
 StoreDiskFile(basedir || "alldata.xlsx", CallJS("mod::hovi_client/js/json2csv.ts#toXLSX", sheets), [ overwrite := TRUE ]);
 StoreDiskFile(basedir || "structure.json", CallJS("mod::hovi_client/js/json2csv.ts#toStructure", sheets), [ overwrite := TRUE ]);
+StoreDiskFile(basedir || "convert.sps", CallJS("mod::hovi_client/js/json2csv.ts#toConvertSyntax", sheets), [ overwrite := TRUE ]);
+StoreDiskFile(basedir || "merge.sps", CallJS("mod::hovi_client/js/json2csv.ts#toMergeSyntax", sheets), [ overwrite := TRUE ]);
