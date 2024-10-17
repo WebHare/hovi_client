@@ -14,5 +14,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "write-excel-file": "^2.0.10"
   }
 }
