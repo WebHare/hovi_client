@@ -39,7 +39,7 @@ RECORD fieldgroups :=
       , [ name :=       "admission"
         , title :=      /*tid*/'hovi_client:itemtypes.product.groups.admission'
         , icon :=       "system:sysmgmt/access"
-        , fields :=     [ "productstarts", "admissiondescription", "admissionurl", "admissionselections", "admissiontests", "numerusfixus", "languagerequirements", "studyroutes", "otherrequirements", "studychoicechecks" ]
+        , fields :=     [ "productstarts", "admissionurl", "admissionselections", "admissiontests", "numerusfixus", "languagerequirements", "studyroutes", "otherrequirements", "studychoicechecks" ]
         , field :=      ""
         ]
       , [ name :=       "afterstudy"
