@@ -41,15 +41,18 @@ export async function toXLSX(sheets: Array<{
   const datasets: SheetData[] = [];
 
   for (const sheet of sheets) {
-    const jsonRows = (JSON.parse(await sheet.data.text()) as { value: Array<Record<string, unknown>> }).value;
-    const headers = Object.keys(jsonRows[0]);
+    const sheetdata = await sheet.data.text();
+    const jsonRows = (JSON.parse(sheetdata) as { value: Array<Record<string, unknown>> }).value;
     const rows: SheetData = [];
-    rows.push(headers.map(hdr => ({ value: hdr, fontWeight: 'bold' })));
 
-    for (const row of jsonRows.slice(1))
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we just have to assume the decoded JSON is legit
-      rows.push(headers.map(header => ({ value: row[header] as any })));
+    if(jsonRows.length > 0) {
+      const headers = Object.keys(jsonRows[0]);
+      rows.push(headers.map(hdr => ({ value: hdr, fontWeight: 'bold' })));
 
+      for (const row of jsonRows.slice(1))
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- we just have to assume the decoded JSON is legit
+        rows.push(headers.map(header => ({ value: row[header] as any })));
+    }
     datasets.push(rows);
   }
 
@@ -69,6 +72,9 @@ export async function toStructure(sheets: Array<{
   const structure: SKDBLegacyStructure = { sheets: {} };
   for (const sheet of sheets) {
     const jsonRows = (JSON.parse(await sheet.data.text()) as { value: Array<Record<string, unknown>> }).value;
+    if (jsonRows.length === 0)
+      continue;
+
     const headers = Object.keys(jsonRows[0]);
     const firstdata = jsonRows[0];
     if (!firstdata)
