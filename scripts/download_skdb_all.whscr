@@ -23,6 +23,9 @@ StoreDiskFile(basedir || "root.json", root, [ overwrite := TRUE ]);
 
 INSERT CELL[name := "root", data := root] INTO sheets AT END;
 
+BLOB metadata := ExecuteSKDBGet("$metadata", FALSE);
+StoreDiskFile(basedir || "metadata.xml", metadata, [ overwrite := TRUE ]);
+
 FOREVERY(RECORD database FROM rootdata.value)
 {
   BLOB subtable := ExecuteSKDBGet(database.url || "/");

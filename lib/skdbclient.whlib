@@ -80,13 +80,15 @@ PUBLIC RECORD FUNCTION EnsureFreshSKDBToken()
 }
 
 
-PUBLIC BLOB FUNCTION ExecuteSKDBGet(STRING url)
+PUBLIC BLOB FUNCTION ExecuteSKDBGet(STRING url, BOOLEAN json DEFAULTSTO TRUE)
 {
   IF(NOT ObjectExists(skdbbrowser))
     skdbbrowser := NEW WebBrowser;
 
   RECORD tokeninfo := EnsureFreshSKDBToken();
-  url := UpdateURLVariables(GetSKDBAPIBaseURL() || url, [ "$format" := "json" ]);
+  url := GetSKDBAPIBaseURL() || url;
+  IF(json)
+    url := UpdateURLVariables(url, [ "$format" := "json" ]);
 
   IF(NOT skdbbrowser->SendRawRequest("GET", url, RECORD[[ field := "Authorization", value := "Bearer " || tokeninfo.access_token ]], DEFAULT BLOB))
     THROW NEW Exception("Request failure");
