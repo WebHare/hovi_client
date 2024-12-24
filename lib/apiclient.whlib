@@ -8,7 +8,7 @@ LOADLIB "mod::system/lib/configure.whlib";
 
 OBJECT currenthoviclient;
 
-CONSTANT STRING hovieditor_use_apiversion := "3";
+CONSTANT STRING hovieditor_use_apiversion := "4";
 
 CONSTANT RECORD ARRAY listproductsformat :=
     [[ userkey :=        ""
