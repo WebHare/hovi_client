@@ -336,26 +336,27 @@ PUBLIC STATIC OBJECTTYPE HOVIAPIClient
 
     IF(this->browser->GetHTTPStatusCode() >= 500)
     {
-      THROW NEW Exception(`Failed to navigate to ${finalurl}: ${this->browser->GetHTTPStatusText()}`);
+      THROW NEW Exception(`Failed to ${method} ${finalurl}: ${this->browser->GetHTTPStatusText()}`);
     }
     ELSE IF(this->browser->GetHTTPStatusCode() >= 400)
     {
-      STRING errorcode := EnforceStructure([ errorcode := "" ], response).errorcode;
-      IF (errorcode IN options.expecterrors OR this->browser->GetHTTPStatusCode() IN options.expecterrorstatus)
+      response := EnforceStructure([ errorcode := "" , message := ""], response);
+
+      IF (response.errorcode IN options.expecterrors OR this->browser->GetHTTPStatusCode() IN options.expecterrorstatus)
       {
         RETURN CELL
           [ etag := ""
           , statuscode :=     this->browser->GetHTTPStatusCode()
-          , errorcode
+          , response.errorcode
           , data := response
           ]; //expected error
       }
 
-      THROW NEW Exception(`Failed to navigate to ${finalurl}: ${this->browser->GetHTTPStatusText()}`);
+      THROW NEW Exception(`Failed to ${method} ${finalurl}: ${response.message ?? this->browser->GetHTTPStatusText()}`);
     }
     ELSE IF(this->browser->GetHTTPStatusCode() >= 300)
     {
-      THROW NEW Exception(`Failed to navigate to ${finalurl}: ${this->browser->GetHTTPStatusText()}`);
+      THROW NEW Exception(`Failed to ${method} ${finalurl}: ${this->browser->GetHTTPStatusText()}`);
     }
 
     IF (TypeID(response) = TypeID(RECORD) AND IsValueSet(response))
