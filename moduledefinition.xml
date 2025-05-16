@@ -1,7 +1,7 @@
 <module xmlns="http://www.webhare.net/xmlns/system/moduledefinition">
 
   <meta configscreen="/tolliumapps/config.xml#config">
-    <version>4.0.0</version>
+    <version>4.1.0</version>
     <description />
     <packaging download="true" webhareversion=">= 5.6.0" />
     <validation options="nowarnings">
@@ -28,5 +28,10 @@
   <publisher>
     <siteprofile path="data/hovirtd.siteprl.xml" />
   </publisher>
+
+  <servicemanager>
+    <!-- TODO randomizer/offset support -->
+    <task runat="30 6 * * *" runtz="Europe/Amsterdam" script="tasks/download_skdb.ts" tag="download_skdb" minservertype="test" />
+  </servicemanager>
 
 </module>
