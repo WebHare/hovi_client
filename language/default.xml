@@ -315,7 +315,12 @@
       <text tid="config">HOVI Client configuration</text>
       <text tid="havereadonlyaccess">Connection successful. You have read-only access to the HOVI database</text>
       <text tid="havewriteaccess">Connection successful. You have write access to the following organizations: <param p="1"/></text>
+      <text tid="hoviclient">HOVI Client</text>
       <text tid="nopermissions">Invalid key (no permissions)</text>
+      <text tid="skdb20client">SKDB 2.0 Client</text>
+      <text tid="skdbapi-connected">The SKDB 2.0 API connection succeeded. The key is registered to: <param p="1"/></text>
+      <text tid="skdbapi-error">The SKDB 2.0 API reported the following error: <param p="1"/></text>
+      <text tid="skdbapi-invalid">This SKDB 2.0 URL does not appear to host a SKDB api.</text>
     </textgroup>
   </textgroup>
 </language>

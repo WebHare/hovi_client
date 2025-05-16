@@ -1,5 +1,7 @@
 <?wh
 
+LOADLIB "wh::javascript.whlib";
+
 LOADLIB "mod::tollium/lib/screenbase.whlib";
 
 LOADLIB "mod::hovi_client/lib/apiclient.whlib";
@@ -10,23 +12,38 @@ PUBLIC STATIC OBJECTTYPE Config EXTEND TolliumScreenBase
   MACRO Init()
   {
     ^registry->ReadFromRegistry();
+    ^skdb20client->ReadFromRegistry();
   }
   BOOLEAN FUNCTION Submit()
   {
     RECORD permissions;
     OBJECT work := this->BeginFeedback();
-    IF(NOT work->HasFailed())
+
+    IF(NOT work->HasFailed() AND ^registry->^apiurl->value != "")
     {
       OBJECT client := NEW HOVIAPIClient(^registry->^apiurl->value, ^registry->^apikey->value);
       permissions := client->GetPermissions();
       IF(NOT RecordExists(permissions))
         work->AddErrorFor(^registry->^apikey, this->GetTid(".nopermissions"));
     }
+
+    IF(NOT work->HasFailed() AND ^skdb20client->^apiurl->value != "")
+    {
+      RECORD result := CallJS("@mod-hovi_client/js/skdbclient.ts#validateCredentials", ^skdb20client->^apiurl->value, ^skdb20client->^apikey->value);
+      IF(NOT RecordExists(result))
+        work->AddWarning(^registry->^apikey, this->GetTid(".skdbapi-invalid"));
+      ELSE IF (CellExists(result, "error"))
+        work->Addwarning(this->GetTid(".skdbapi-error", result.email));
+      ELSE IF (CellExists(result, "email"))
+        work->AddWarning(this->GetTid(".skdbapi-connected", result.email));
+    }
+
     IF(NOT work->Finish())
       RETURN FALSE;
 
     work := this->BeginWork();
     ^registry->WriteToRegistry();
+    ^skdb20client->WriteToRegistry();
     IF(Length(permissions.manageorganizations) > 0)
       work->AddWarning(this->GetTid(".havewriteaccess", Detokenize(permissions.manageorganizations, ", ")));
     ELSE

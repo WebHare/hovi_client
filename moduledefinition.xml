@@ -19,6 +19,10 @@
       <string name="tokenurl" />
       <string name="apiurl" />
     </node>
+    <node name="skdb20client">
+      <string name="apiurl" initialval="https://api.skdb.nl/" />
+      <string name="apikey" />
+    </node>
   </moduleregistry>
 
   <publisher>

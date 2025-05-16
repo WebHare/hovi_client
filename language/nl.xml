@@ -315,7 +315,12 @@
       <text tid="config">HOVI Client configuratie</text>
       <text tid="havereadonlyaccess">Connectie gelukt. Je hebt leestoegang tot de HOVI database</text>
       <text tid="havewriteaccess">Connectie gelukt. Je hebt schrijfrechten op de volgende organisaties: <param p="1"/></text>
+      <text tid="hoviclient">HOVI Client</text>
       <text tid="nopermissions">Foutieve sleutel (geen rechten)</text>
+      <text tid="skdb20client">SKDB 2.0 Client</text>
+      <text tid="skdbapi-connected">De SKDB 2.0 API verbinding is geslaagd. Deze sleutel is geregistreerd aan: <param p="1"/></text>
+      <text tid="skdbapi-error">De SKDB 2.0 API melde de volgende fout: <param p="1"/></text>
+      <text tid="skdbapi-invalid">Deze SKDB 2.0 URL lijkt geen SKDB API aan te bieden</text>
     </textgroup>
   </textgroup>
 </language>

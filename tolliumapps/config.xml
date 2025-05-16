@@ -6,11 +6,16 @@
   <screen name="config" footerbuttons="ok cancel">
     <compositions>
       <s:registrynode name="registry" node="hovi_client" />
+      <s:registrynode name="skdb20client" node="hovi_client.skdb20client" />
     </compositions>
 
     <body>
-      <textedit composition="registry" cellname="apiurl" required="true" />
-      <textedit composition="registry" cellname="apikey" required="true" />
+      <heading tid=".hoviclient" />
+      <textedit composition="registry" cellname="apiurl"  />
+      <textedit composition="registry" cellname="apikey"  />
+      <heading tid=".skdb20client" />
+      <textedit composition="skdb20client" cellname="apiurl"  />
+      <textedit composition="skdb20client" cellname="apikey"  />
     </body>
   </screen>
 
