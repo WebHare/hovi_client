@@ -50,7 +50,7 @@ export async function downloadSkdb() {
     for (const file of result)
       await storeDiskFile(`${newdir}/${file.name}`, file.data, { overwrite: true });
 
-    if(existsSync(olddir))
+    if(existsSync(outdir))
       await rename(outdir, olddir);
 
     await rename(newdir, outdir);
