@@ -1,6 +1,7 @@
 import { loadlib } from "@webhare/harescript";
 import { lockMutex, readRegistryKey, toFSPath, WebHareBlob } from "@webhare/services";
 import { deleteRecursive, storeDiskFile } from "@webhare/system-tools";
+import { existsSync } from "node:fs";
 import { mkdir, rename } from "node:fs/promises";
 
 const skdbApiVersions = [0];
@@ -49,7 +50,9 @@ export async function downloadSkdb() {
     for (const file of result)
       await storeDiskFile(`${newdir}/${file.name}`, file.data, { overwrite: true });
 
-    await rename(outdir, olddir);
+    if(existsSync(olddir))
+      await rename(outdir, olddir);
+
     await rename(newdir, outdir);
     await deleteRecursive(olddir, { allowMissing: true, deleteSelf: true });
   }
