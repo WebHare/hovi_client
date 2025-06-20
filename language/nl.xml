@@ -88,7 +88,7 @@
       <text tid="organization">Organisatie</text>
       <text tid="parentlocation">Bovenliggende organisatie</text>
       <text tid="userkey">Gebruikerssleutel</text>
-      <text tid="vestigingsk123id">SK123 vestiging ID</text>
+      <text tid="vestigingsk123id">SKDB 2.0 vestiging ID</text>
       <text tid="visitoraddress">Bezoekadres</text>
       <text tid="weblink">URL</text>
       <textgroup gid="groups">   <!-- itemtypes.location.groups -->
@@ -147,7 +147,7 @@
       <text tid="languagerequirements">Taaleisen</text>
       <text tid="location">Hoofdvestiging</text>
       <text tid="numerusfixus">Gelimiteerde toelating</text>
-      <text tid="opleidingsk123id">SK123 opleiding ID</text>
+      <text tid="opleidingsk123id">SKDB 2.0 opleiding ID</text>
       <text tid="organization">Organisatie</text>
       <text tid="otherrequirements">Overige eisen</text>
       <text tid="percentagedistancelearning">Deel online te volgen</text>

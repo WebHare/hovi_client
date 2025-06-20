@@ -4,6 +4,9 @@ LOADLIB "mod::system/lib/resources.whlib";
 
 
 PUBLIC RECORD ARRAY FUNCTION GetStoredSKDB20Feed(INTEGER apiversion, STRING name) {
+  IF(name != ToLowercase(name))
+    THROW NEW Exception(`Feed name '${name}' must be lowercase`);
+
   RETURN DecodeJSONBlob(GetWebHareResource(`storage::hovi_client/skdb20/v${apiversion}/${name}.json`));
 }
 

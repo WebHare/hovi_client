@@ -12,13 +12,7 @@
   <moduleregistry>
     <string name="apiurl" description="HOVI API base url" initialval="https://api.hovi.nl/api/" />
     <string name="apikey" description="HOVI API key" />
-    <node name="skdbclient">
-      <string name="client_id" />
-      <string name="client_secret" />
-      <record name="token" />
-      <string name="tokenurl" />
-      <string name="apiurl" />
-    </node>
+    <obsoletenode name="skdbclient"/>
     <node name="skdb20client">
       <string name="apiurl" initialval="https://api.skdb.nl/" />
       <string name="apikey" />

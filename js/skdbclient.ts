@@ -3,7 +3,6 @@ import { lockMutex, readRegistryKey, toFSPath, WebHareBlob } from "@webhare/serv
 import { deleteRecursive, storeDiskFile } from "@webhare/system-tools";
 import { existsSync } from "node:fs";
 import { mkdir, rename } from "node:fs/promises";
-import { basename } from "node:path";
 
 const skdbApiVersions = [0];
 

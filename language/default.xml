@@ -88,7 +88,7 @@
       <text tid="organization">Organization</text>
       <text tid="parentlocation">Parent location</text>
       <text tid="userkey">User key</text>
-      <text tid="vestigingsk123id">SK123 vestiging ID</text>
+      <text tid="vestigingsk123id">SKDB 2.0 vestiging ID</text>
       <text tid="visitoraddress">Visitor address</text>
       <text tid="weblink">URL</text>
       <textgroup gid="groups">   <!-- itemtypes.location.groups -->
@@ -147,7 +147,7 @@
       <text tid="languagerequirements">Language requirements</text>
       <text tid="location">Main location</text>
       <text tid="numerusfixus">Limitations</text>
-      <text tid="opleidingsk123id">SK123 opleiding ID</text>
+      <text tid="opleidingsk123id">SKDB 2.0 opleiding ID</text>
       <text tid="organization">Organization</text>
       <text tid="otherrequirements">Other requirements</text>
       <text tid="percentagedistancelearning">Distance learning</text>
