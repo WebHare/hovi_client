@@ -3,7 +3,10 @@
 LOADLIB "mod::system/lib/resources.whlib";
 
 
-PUBLIC RECORD ARRAY FUNCTION GetStoredSKDB20Feed(INTEGER apiversion, STRING name)
-{
+PUBLIC RECORD ARRAY FUNCTION GetStoredSKDB20Feed(INTEGER apiversion, STRING name) {
   RETURN DecodeJSONBlob(GetWebHareResource(`storage::hovi_client/skdb20/v${apiversion}/${name}.json`));
+}
+
+PUBLIC DATETIME FUNCTION GetLastSKDB20Update(INTEGER apiversion) {
+  RETURN RetrieveWebhareResource(`storage::hovi_client/skdb20/v${apiversion}/export.zip`).modified;
 }

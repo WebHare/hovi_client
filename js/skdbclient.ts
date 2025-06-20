@@ -3,6 +3,7 @@ import { lockMutex, readRegistryKey, toFSPath, WebHareBlob } from "@webhare/serv
 import { deleteRecursive, storeDiskFile } from "@webhare/system-tools";
 import { existsSync } from "node:fs";
 import { mkdir, rename } from "node:fs/promises";
+import { basename } from "node:path";
 
 const skdbApiVersions = [0];
 
@@ -39,14 +40,16 @@ export async function downloadSkdb() {
       return { isError: true, message: `Unexpected response type from SKDB 2.0 API: ${jsonexport.headers.get("content-type")}` };
 
     //TOOD use jszip but for backwardscompat we'll invoke unpackarchive until ALL ARE 5.7
-
-    const result = await loadlib("wh::filetypes/archiving.whlib").unpackArchive(WebHareBlob.from(Buffer.from(await jsonexport.arrayBuffer())));
+    const zipfile = Buffer.from(await jsonexport.arrayBuffer());
+    const result = await loadlib("wh::filetypes/archiving.whlib").unpackArchive(WebHareBlob.from(zipfile));
     const outdir = toFSPath("storage::hovi_client/skdb20/v" + api);
     const olddir = `${outdir}.old`;
     const newdir = `${outdir}.new`;
 
     await deleteRecursive(newdir, { allowMissing: true, deleteSelf: true }); //delete any exisitng .new
     await mkdir(newdir, { recursive: true });
+
+    await storeDiskFile(`${newdir}/export.zip`, zipfile, { overwrite: true });
     for (const file of result)
       await storeDiskFile(`${newdir}/${file.name}`, file.data, { overwrite: true });
 
