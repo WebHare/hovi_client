@@ -17,9 +17,9 @@ PUBLIC STATIC OBJECTTYPE Config EXTEND TolliumScreenBase
   BOOLEAN FUNCTION Submit()
   {
     RECORD permissions;
-    OBJECT work := this->BeginFeedback();
+    OBJECT work := this->BeginWork();
 
-    IF(NOT work->HasFailed() AND ^registry->^apiurl->value != "")
+    IF(NOT work->HasFailed() AND ^registry->^apikey->value != "")
     {
       OBJECT client := NEW HOVIAPIClient(^registry->^apiurl->value, ^registry->^apikey->value);
       permissions := client->GetPermissions();
@@ -27,7 +27,7 @@ PUBLIC STATIC OBJECTTYPE Config EXTEND TolliumScreenBase
         work->AddErrorFor(^registry->^apikey, this->GetTid(".nopermissions"));
     }
 
-    IF(NOT work->HasFailed() AND ^skdb20client->^apiurl->value != "")
+    IF(NOT work->HasFailed() AND ^skdb20client->^apikey->value != "")
     {
       RECORD result := CallJS("@mod-hovi_client/js/skdbclient.ts#validateCredentials", ^skdb20client->^apiurl->value, ^skdb20client->^apikey->value);
       IF(NOT RecordExists(result))
@@ -38,16 +38,14 @@ PUBLIC STATIC OBJECTTYPE Config EXTEND TolliumScreenBase
         work->AddWarning(this->GetTid(".skdbapi-connected", result.email));
     }
 
-    IF(NOT work->Finish())
-      RETURN FALSE;
-
-    work := this->BeginWork();
     ^registry->WriteToRegistry();
     ^skdb20client->WriteToRegistry();
+
     IF(Length(permissions.manageorganizations) > 0)
       work->AddWarning(this->GetTid(".havewriteaccess", Detokenize(permissions.manageorganizations, ", ")));
     ELSE
       work->AddWarning(this->GetTid(".havereadonlyaccess"));
+
     RETURN work->Finish();
   }
 >;
