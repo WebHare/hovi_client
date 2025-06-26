@@ -25,15 +25,19 @@ PUBLIC STATIC OBJECTTYPE Config EXTEND TolliumScreenBase
       permissions := client->GetPermissions();
       IF(NOT RecordExists(permissions))
         work->AddErrorFor(^registry->^apikey, this->GetTid(".nopermissions"));
+      ELSE IF(Length(permissions.manageorganizations) > 0)
+        work->AddWarning(this->GetTid(".havewriteaccess", Detokenize(permissions.manageorganizations, ", ")));
+      ELSE
+        work->AddWarning(this->GetTid(".havereadonlyaccess"));
     }
 
     IF(NOT work->HasFailed() AND ^skdb20client->^apikey->value != "")
     {
       RECORD result := CallJS("@mod-hovi_client/js/skdbclient.ts#validateCredentials", ^skdb20client->^apiurl->value, ^skdb20client->^apikey->value);
       IF(NOT RecordExists(result))
-        work->AddWarning(^registry->^apikey, this->GetTid(".skdbapi-invalid"));
+        work->AddWarning(^skdb20client->^apikey, this->GetTid(".skdbapi-invalid"));
       ELSE IF (CellExists(result, "error"))
-        work->Addwarning(this->GetTid(".skdbapi-error", result.email));
+        work->AddErrorFor(^skdb20client->^apikey, this->GetTid(".skdbapi-error", result.error));
       ELSE IF (CellExists(result, "email"))
         work->AddWarning(this->GetTid(".skdbapi-connected", result.email));
     }
@@ -41,10 +45,6 @@ PUBLIC STATIC OBJECTTYPE Config EXTEND TolliumScreenBase
     ^registry->WriteToRegistry();
     ^skdb20client->WriteToRegistry();
 
-    IF(Length(permissions.manageorganizations) > 0)
-      work->AddWarning(this->GetTid(".havewriteaccess", Detokenize(permissions.manageorganizations, ", ")));
-    ELSE
-      work->AddWarning(this->GetTid(".havereadonlyaccess"));
 
     RETURN work->Finish();
   }
