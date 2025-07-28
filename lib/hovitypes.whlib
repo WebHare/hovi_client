@@ -1301,6 +1301,34 @@ PUBLIC CONSTANT RECORD hovi_typeconfigs :=
                   , tid :=                /*tid*/"hovi_client:itemtypes.product.degrees"
                   , type :=               "domainarray"
                   ]
+                , [ containstranslated := FALSE
+                  , domain :=             ""
+                  , ismulti :=            TRUE
+                  , isreadonly :=         FALSE
+                  , isrequired :=         TRUE
+                  , istranslated :=       FALSE
+                  , jsonname :=           "distanceLearningOptions"
+                  , maxlength :=          -1
+                  , name :=               "distancelearningoptions"
+                  , tid :=                /*tid*/"hovi_client:itemtypes.product.distancelearningoptions"
+                  , type :=               "array"
+                  , subfields :=
+                        [ [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "type"
+                          , name :=         "type"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.distancelearningoptions.type"
+                          , type :=         "enum"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
+                          , jsonname :=     "percentageOnline"
+                          , name :=         "percentageonline"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.distancelearningoptions.percentageonline"
+                          , type :=         "percentage"
+                          ]
+                        ]
+                  ]
                 , [ containstranslated := TRUE
                   , domain :=             ""
                   , ismulti :=            FALSE
@@ -1567,18 +1595,6 @@ PUBLIC CONSTANT RECORD hovi_typeconfigs :=
                           , type :=         "text"
                           ]
                         ]
-                  ]
-                , [ containstranslated := FALSE
-                  , domain :=             ""
-                  , ismulti :=            TRUE
-                  , isreadonly :=         FALSE
-                  , isrequired :=         FALSE
-                  , istranslated :=       FALSE
-                  , jsonname :=           "percentageDistanceLearning"
-                  , maxlength :=          -1
-                  , name :=               "percentagedistancelearning"
-                  , tid :=                /*tid*/"hovi_client:itemtypes.product.percentagedistancelearning"
-                  , type :=               "percentage"
                   ]
                 , [ containstranslated := FALSE
                   , domain :=             ""
@@ -2282,7 +2298,6 @@ PUBLIC CONSTANT RECORD hovi_typeconfigs :=
                       ]
                 , productforms :=
                       [ [ instructionmodes :=           STRING[]
-                        , percentagedistancelearning := -1
                         , percentageforeignstudents :=  -1
                         , percentagenighteducation :=   -1
                         , productform :=                ""
@@ -2304,6 +2319,11 @@ PUBLIC CONSTANT RECORD hovi_typeconfigs :=
                                 ]
                               ]
                         , admissionurl :=               DEFAULT RECORD
+                        , distancelearningoptions :=
+                              [ [ percentageonline := -1
+                                , type :=             ""
+                                ]
+                              ]
                         , instructionmodedescription := DEFAULT RECORD
                         , jobperspective :=             DEFAULT RECORD
                         , languagerequirements :=

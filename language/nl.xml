@@ -136,6 +136,7 @@
       <text tid="crohoname">Crohonaam</text>
       <text tid="crohosector">Croho sector</text>
       <text tid="degrees">Titel bij afstuderen</text>
+      <text tid="distancelearningoptions">Opties voor afstandsonderwijs</text>
       <text tid="exchangeprograms">Uitwisselingsprogramma's</text>
       <text tid="financing">Bekostiging</text>
       <text tid="increasedtuitionfeebkki">Verhoogd collegegeld met BKKI</text>
@@ -150,7 +151,6 @@
       <text tid="opleidingsk123id">SKDB 2.0 opleiding ID</text>
       <text tid="organization">Organisatie</text>
       <text tid="otherrequirements">Overige eisen</text>
-      <text tid="percentagedistancelearning">Deel online te volgen</text>
       <text tid="percentageforeignstudents">Aandeel buitenlandse studenten</text>
       <text tid="percentagenighteducation">Deel in de avond te volgen</text>
       <text tid="potentialjobs">Potentiële beroepen</text>
@@ -206,6 +206,10 @@
           <text tid="partnername">Naam partner</text>
           <text tid="partnerorganization">Partnerorganizatie</text>
         </textgroup>
+      </textgroup>
+      <textgroup gid="distancelearningoptions">   <!-- itemtypes.product.distancelearningoptions -->
+        <text tid="percentageonline">Percentage online</text>
+        <text tid="type">Type</text>
       </textgroup>
       <textgroup gid="exchangeprograms">   <!-- itemtypes.product.exchangeprograms -->
         <text tid="orgunitcountry">Land</text>

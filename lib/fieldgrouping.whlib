@@ -27,7 +27,7 @@ RECORD fieldgroups :=
       , [ name :=       "content"
         , title :=      /*tid*/'hovi_client:itemtypes.product.groups.content'
         , icon :=       "tollium:actions/properties"
-        , fields :=     [ "productlanguages", "studyadvices", "studyabroads", "percentagenighteducation", "percentagedistancelearning", "tracks", "studyguideurl" ]
+        , fields :=     [ "productlanguages", "studyadvices", "studyabroads", "percentagenighteducation", "distancelearningoptions", "tracks", "studyguideurl" ]
         , field :=      ""
         ]
       , [ name :=       "costs"
