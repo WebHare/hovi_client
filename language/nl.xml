@@ -270,6 +270,7 @@
       </textgroup>
       <textgroup gid="studyadvices">   <!-- itemtypes.product.studyadvices -->
         <text tid="binding">Bindend</text>
+        <text tid="hasminimumects">Heeft minimum ECTS creterium</text>
         <text tid="minimumects">Criterium</text>
         <text tid="period">Adviesmoment</text>
       </textgroup>

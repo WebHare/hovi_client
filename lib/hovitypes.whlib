@@ -1969,6 +1969,13 @@ PUBLIC CONSTANT RECORD hovi_typeconfigs :=
                           ]
                         , [ domain :=       ""
                           , istranslated := FALSE
+                          , jsonname :=     "hasMinimumECTS"
+                          , name :=         "hasminimumects"
+                          , tid :=          /*tid*/"hovi_client:itemtypes.product.studyadvices.hasminimumects"
+                          , type :=         "boolean"
+                          ]
+                        , [ domain :=       ""
+                          , istranslated := FALSE
                           , jsonname :=     "minimumECTS"
                           , name :=         "minimumects"
                           , tid :=          /*tid*/"hovi_client:itemtypes.product.studyadvices.minimumects"
@@ -2366,9 +2373,10 @@ PUBLIC CONSTANT RECORD hovi_typeconfigs :=
                                 ]
                               ]
                         , studyadvices :=
-                              [ [ binding :=      FALSE
-                                , minimumects :=  0
-                                , period :=       0
+                              [ [ binding :=        FALSE
+                                , hasminimumects := FALSE
+                                , minimumects :=    0
+                                , period :=         0
                                 ]
                               ]
                         , studycosts :=
