@@ -62,6 +62,7 @@ PUBLIC CONSTANT RECORD __hovieditor_apitranslations := CELL
     , "eventType"
     , "exchangePrograms"
     , "explanationAbroad"
+    , "hasMinimumECTS"
     , "increasedTuitionFeeBKKI"
     , "informationRegistrationURL"
     , "instructionModeDescription"
