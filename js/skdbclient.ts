@@ -4,7 +4,7 @@ import { deleteRecursive, storeDiskFile } from "@webhare/system-tools";
 import { existsSync } from "node:fs";
 import { mkdir, rename } from "node:fs/promises";
 
-const skdbApiVersions = [0];
+const skdbApiVersions = [0,1];
 
 export async function validateCredentials(url: string, key: string) {
   const apimeta = await fetch(url + 'v0/meta', {
