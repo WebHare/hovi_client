@@ -1,12 +1,12 @@
 import { downloadSkdb } from "@mod-hovi_client/js/skdbclient";
-// import { run } from "@webhare/cli"; //TODO once we can up the mininum version to 5.8
+import { run } from "@webhare/cli";
 import { sleep } from "@webhare/std";
 import { isatty } from "node:tty";
 
 
-// run({
-  async function main() {
-    if (!isatty(0)) //not running interactively
+run({
+  async  main() {
+    if (isatty(0)) //not running interactively
       await sleep(Math.random() * 90_000); //as we run on a schedule let's not ALL connect at 6:30AM
 
     const result = await downloadSkdb();
@@ -16,6 +16,4 @@ import { isatty } from "node:tty";
     }
     return 0;
   }
-// });
-
-main();
+});
