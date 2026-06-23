@@ -7,7 +7,7 @@ import { mkdir, rename } from "node:fs/promises";
 const skdbApiVersions = [1];
 
 export async function validateCredentials(url: string, key: string) {
-  const apimeta = await fetch(url + 'v0/meta', {
+  const apimeta = await fetch(url + `v${skdbApiVersions.at(-1)}/meta`, {
     method: "GET",
     headers: {
       "Authorization": `Bearer ${key}`
